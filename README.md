@@ -28,7 +28,7 @@ The C++ Movie Rental Application is a console-based program designed to streamli
     ```shell
     cmake -S . -B build
     cmake --build build
-    ./build/MovieRentalApp
+    ./build/movieRentalApp
     ```
 
 ## License
