@@ -28,5 +28,10 @@ CREATE TABLE IF NOT EXISTS "history"(
   "user_id" INTEGER NOT NULL,
   "movie_id" INTEGER NOT NULL,
   "action" TEXT NOT NULL,
+  "cost" REAL NOT NULL;
   "date" TEXT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "finance"(
+  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  "balance" INTEGER NOT NULL,
 );
