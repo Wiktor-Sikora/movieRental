@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS "users"(
   "login" TEXT UNIQUE NOT NULL,
   "password" TEXT NOT NULL,
   "created" TEXT NOT NULL,
-  "is_admin" INTEGER NOT NULL DEFAULT '0'
+  "is_admin" INTEGER NOT NULL DEFAULT '0',
+  "is_blocked" INTEGER NOT NULL DEFAULT '0'
 );
 CREATE TABLE IF NOT EXISTS "movies"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "history"(
   "user_id" INTEGER NOT NULL,
   "movie_id" INTEGER NOT NULL,
   "action" TEXT NOT NULL,
-  "cost" REAL NOT NULL;
+  "cost" REAL NOT NULL,
   "date" TEXT NOT NULL
 );
 CREATE TABLE IF NOT EXISTS "finance"(
