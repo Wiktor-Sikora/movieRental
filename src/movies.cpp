@@ -2,43 +2,28 @@
 #include <string>
 #include <ctime>
 
-class Movie {
-private:
-    int id;
+#include "db.h"
+#include "movies.h"
 
-public:
-    std::string name;
-    std::string description;
-    // only year, soo date object is not necessary
-    int released;
-    float price;
-    int stock;
+Movie::Movie(
+    std::string name, std::string description, 
+    int released, float price=10, 
+    int stock=10, int id=10
+) : name(name), description(description),
+    released(released), price(price),
+    stock(stock), id(id)
+{}
 
-    Movie(
-        std::string name, 
-        std::string description, 
-        int released,
-        float price = 10,
-        int stock = 10,
-        int id = NULL 
-    ) {
-        this->name = name;
-        this->description = description;
-        this->released = released;
-        this->price = price;
-        this->stock = stock;
-        this->id = id;
-    };
-    
-    bool saveToDb() {
-        if (this->id) {
-            
-        }
+Movie::~Movie() {}
+
+void Movie::saveToDb() {
+    if (this->id) {
         
     }
+    
+}
 
-    ~Movie();
-};
+
 
 
 

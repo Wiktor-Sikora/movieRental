@@ -2,7 +2,6 @@
 #include <vector>
 #include <string>
 #include "db.h"
-// #include "movies.cpp"
 
 int main() {
     SQLiteDb db_handler("database.db");

@@ -2,7 +2,7 @@
 #define DB_H
 #include <sqlite3.h>
 #include <vector>
-// #include "db.cpp"
+#include <string>
 
 class SQLiteDb {
     sqlite3* db;
