@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.30)
 
 # Project name and version
-project(movieRental VERSION 1.0)
+project(movieRental VERSION 0.1.0)
 
 # C++ standard
 set(CMAKE_CXX_STANDARD 20)
@@ -13,8 +13,8 @@ add_executable(movieRentalApp
     src/main.cpp 
     src/utils.cpp 
     src/db.cpp src/db.h 
+    src/movies.cpp src/movies.h
     src/sqlite3.c 
-    src/movies.cpp
 )
 
 # Platform-specific configurations
