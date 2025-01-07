@@ -1,12 +1,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "db.cpp"
-
+#include "db.h"
+// #include "movies.cpp"
 
 int main() {
     SQLiteDb db_handler("database.db");
-
 
     std::vector<std::vector<std::string>> rows = db_handler.query("SELECT * FROM movies Where released > 2000");
 
@@ -17,7 +16,6 @@ int main() {
 
         std::cout << "\n";
     }
-
     
     return 0;
 }

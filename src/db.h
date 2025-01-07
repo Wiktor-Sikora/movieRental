@@ -1,0 +1,21 @@
+#ifndef DB_H
+#define DB_H
+#include <sqlite3.h>
+#include <vector>
+// #include "db.cpp"
+
+class SQLiteDb {
+    sqlite3* db;
+    std::string dbName;
+
+    public:
+        SQLiteDb(const std::string& databaseName);
+        ~SQLiteDb();
+
+        bool open();
+        void close();
+        bool execute(const std::string& sql);
+        std::vector<std::vector<std::string>> query(const std::string& sql);
+};
+
+#endif

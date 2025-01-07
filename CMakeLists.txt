@@ -9,7 +9,13 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # executable target
-add_executable(movieRentalApp src/main.cpp src/utils.cpp src/db.cpp src/sqlite3.c)
+add_executable(movieRentalApp 
+    src/main.cpp 
+    src/utils.cpp 
+    src/db.cpp src/db.h 
+    src/sqlite3.c 
+    src/movies.cpp
+)
 
 # Platform-specific configurations
 if(WIN32)
