@@ -66,7 +66,7 @@ void Movie::deleteMovie() const {
  * @param searchPhrase gets movies with similiar name
  * @param userId gets movies that are rented by a user
 */
-MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId) {
+MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     SQLiteDb db_handler("database.db");
     std::vector<std::vector<std::string>> rows;
 
@@ -87,4 +87,16 @@ MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId) {
             std::stoi(row.at(0))
         ));
     }
+
+    db_handler.close();
+}   
+
+std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
+    out << "[";
+    for (int i = 0; i < movies.QuerySet.size() - 1; i++) {
+        out << "Movie(" << movies.QuerySet.at(i).name << "), ";
+    }
+    out << "Movie(" << movies.QuerySet.back().name << ")]";
+    
+    return out;
 }

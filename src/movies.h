@@ -27,13 +27,15 @@ class Movie {
 class MoviesQuerySet {
     private:
         std::string searchPhrase;
-        std::vector<Movie> QuerySet;
         int userId;
 
     public:
-        MoviesQuerySet(std::string& searchPhrase, int userId = -1);
+        std::vector<Movie> QuerySet;
+
+        MoviesQuerySet(const std::string& searchPhrase, int userId = -1);
         ~MoviesQuerySet();
 
-        
+        friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {return out;};      
 };
+
 #endif
