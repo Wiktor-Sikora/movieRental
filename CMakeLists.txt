@@ -1,6 +1,10 @@
 # Minimum required CMake version
 cmake_minimum_required(VERSION 3.30)
 
+# Compiler
+set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_CXX_COMPILER "g++")
+
 # Project name and version
 project(movieRental VERSION 0.1.0)
 

@@ -66,12 +66,13 @@ void Movie::deleteMovie() const {
  * @param searchPhrase gets movies with similiar name
  * @param userId gets movies that are rented by a user
 */
-MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId = -1) {
+MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId) {
     SQLiteDb db_handler("database.db");
+    std::vector<std::vector<std::string>> rows;
 
     if (userId != - 1) {
         std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE %{}%", searchPhrase);        
-        std::vector<std::vector<std::string>> rows = db_handler.query(sqlQuery); 
+        rows = db_handler.query(sqlQuery); 
     } else {
         // TODO: 
     }
@@ -84,7 +85,6 @@ MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId = -1) {
             std::stof(row.at(4)),
             std::stoi(row.at(5)),
             std::stoi(row.at(0))
-        );
-        );
+        ));
     }
 }
