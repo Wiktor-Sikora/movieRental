@@ -71,7 +71,7 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     std::vector<std::vector<std::string>> rows;
 
     if (userId != - 1) {
-        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE %{}%", searchPhrase);        
+        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE '%{}%'", searchPhrase);        
         rows = db_handler.query(sqlQuery); 
     } else {
         // TODO: 
@@ -95,10 +95,12 @@ MoviesQuerySet::~MoviesQuerySet() {}
 
 std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
     out << "[";
-    for (int i = 0; i < movies.QuerySet.size(); i++) {
-        out << "Movie(" << movies.QuerySet.at(i).name << "), ";
+    if (movies.QuerySet.size() > 0) {
+        for (int i = 0; i < movies.QuerySet.size() - 1; i++) {
+            out << "Movie(" << movies.QuerySet.at(i).name << "), ";
+        }
+        // out << "Movie(" << movies.QuerySet.end().name <<  ")";
     }
-    out << "Movie(" << movies.QuerySet.back().name << ")]";
-    
+    out << "]";
     return out;
 }
