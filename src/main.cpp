@@ -8,9 +8,13 @@
 int main() {
     SQLiteDb db_handler("database.db");
 
-    Movie movie("Przełęcz ocalonych", "Schyłek II wojny światowej. Podczas krwawej bitwy o Okinawę amerykański sanitariusz odmawia noszenia broni i zabijania z powodów moralnych.", 2016);
+    Movie movie(
+        "Przełęcz ocalonych", 
+        "Schyłek II wojny światowej. Podczas krwawej bitwy o Okinawę amerykański sanitariusz odmawia noszenia broni i zabijania z powodów moralnych.", 
+        2016
+    );
     movie.saveToDb();
-
+    
     // std::vector<std::vector<std::string>> rows = db_handler.query("SELECT * FROM movies Where released > 2000");
 
     // for (std::vector var1: rows) {

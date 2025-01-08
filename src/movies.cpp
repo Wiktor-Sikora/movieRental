@@ -21,19 +21,70 @@ void Movie::saveToDb() const {
     SQLiteDb db_handler("database.db");
 
     // TODO
-    // if (this->id != -1) {
-    //     db_handler.execute(
-    //         std::format("")
-    //     );
-    // } else {
-    db_handler.execute(
-        std::format("INSERT INTO movies (name, description, released, price, in_stock) VALUES('{}', '{}', {}, {}, {});", 
-        this->name, 
-        this->description,
-        this->released,
-        this->price,
-        this->stock
-    ));
+    if (this->id != -1) {
+        db_handler.execute(
+            std::format("UPDATE movies SET\
+                name='{}', description='{}',\
+                released={}, price={}, in_stock={}\
+                WHERE id={}",
+            this->name,
+            this->description,
+            this->released,
+            this->price,
+            this->stock,
+            this->id
+        ));
+    } else {
+        db_handler.execute(
+            std::format("INSERT INTO movies\
+                (name, description, released, price, in_stock)\
+                VALUES('{}', '{}', {}, {}, {});", 
+            this->name, 
+            this->description,
+            this->released,
+            this->price,
+            this->stock
+        ));
+    }
 
     db_handler.close();
+}
+
+void Movie::deleteMovie() const {
+    SQLiteDb db_handler("database.db");
+
+    if (this->id != -1) {
+        db_handler.execute(std::format("DELETE FROM movies WHERE id={}", this->id));
+    }
+
+    db_handler.close();
+}
+
+/**
+ * Fills the class with Movie objects
+ * 
+ * @param searchPhrase gets movies with similiar name
+ * @param userId gets movies that are rented by a user
+*/
+MoviesQuerySet::MoviesQuerySet(std::string& searchPhrase, int userId = -1) {
+    SQLiteDb db_handler("database.db");
+
+    if (userId != - 1) {
+        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE %{}%", searchPhrase);        
+        std::vector<std::vector<std::string>> rows = db_handler.query(sqlQuery); 
+    } else {
+        // TODO: 
+    }
+
+    for (std::vector row : rows) {
+        this->QuerySet.push_back(Movie(
+            row.at(1),
+            row.at(2),
+            std::stoi(row.at(3)),
+            std::stof(row.at(4)),
+            std::stoi(row.at(5)),
+            std::stoi(row.at(0))
+        );
+        );
+    }
 }

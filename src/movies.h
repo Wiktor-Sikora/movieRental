@@ -24,4 +24,16 @@ class Movie {
         void saveToDb() const;
 };
 
+class MoviesQuerySet {
+    private:
+        std::string searchPhrase;
+        std::vector<Movie> QuerySet;
+        int userId;
+
+    public:
+        MoviesQuerySet(std::string& searchPhrase, int userId = -1);
+        ~MoviesQuerySet();
+
+        
+};
 #endif
