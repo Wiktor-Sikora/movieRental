@@ -7,7 +7,7 @@
 
 int main() {
     MoviesQuerySet movies("p"); 
-    
+    std::cout << movies << "\n";
     
     return 0;
 }

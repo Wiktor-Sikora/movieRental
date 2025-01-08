@@ -35,7 +35,7 @@ class MoviesQuerySet {
         MoviesQuerySet(const std::string& searchPhrase, int userId = -1);
         ~MoviesQuerySet();
 
-        friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {return out;};      
+        friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies);      
 };
 
 #endif

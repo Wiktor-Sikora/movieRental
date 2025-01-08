@@ -91,9 +91,11 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     db_handler.close();
 }   
 
+MoviesQuerySet::~MoviesQuerySet() {}
+
 std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
     out << "[";
-    for (int i = 0; i < movies.QuerySet.size() - 1; i++) {
+    for (int i = 0; i < movies.QuerySet.size(); i++) {
         out << "Movie(" << movies.QuerySet.at(i).name << "), ";
     }
     out << "Movie(" << movies.QuerySet.back().name << ")]";
