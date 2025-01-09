@@ -20,13 +20,12 @@ Movie::~Movie() {}
 void Movie::saveToDb() const {
     SQLiteDb db_handler("database.db");
 
-    // TODO
     if (this->id != -1) {
         db_handler.execute(
             std::format("UPDATE movies SET\
                 name='{}', description='{}',\
                 released={}, price={}, in_stock={}\
-                WHERE id={}",
+                WHERE id={};",
             this->name,
             this->description,
             this->released,
@@ -45,6 +44,8 @@ void Movie::saveToDb() const {
             this->price,
             this->stock
         ));
+        // TODO: update id after insert with
+        // sqlite3_last_insert_rowid() or some shit like that
     }
 
     db_handler.close();
@@ -54,7 +55,7 @@ void Movie::deleteMovie() const {
     SQLiteDb db_handler("database.db");
 
     if (this->id != -1) {
-        db_handler.execute(std::format("DELETE FROM movies WHERE id={}", this->id));
+        db_handler.execute(std::format("DELETE FROM movies WHERE id={};", this->id));
     }
 
     db_handler.close();
@@ -70,15 +71,15 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     SQLiteDb db_handler("database.db");
     std::vector<std::vector<std::string>> rows;
 
-    if (userId != - 1) {
-        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE '%{}%'", searchPhrase);        
+    if (userId == - 1) {
+        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);        
         rows = db_handler.query(sqlQuery); 
     } else {
         // TODO: 
     }
 
     for (std::vector row : rows) {
-        this->QuerySet.push_back(Movie(
+        this->querySet.push_back(Movie(
             row.at(1),
             row.at(2),
             std::stoi(row.at(3)),
@@ -89,17 +90,17 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     }
 
     db_handler.close();
-}   
+}
 
 MoviesQuerySet::~MoviesQuerySet() {}
 
 std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
     out << "[";
-    if (movies.QuerySet.size() > 0) {
-        for (int i = 0; i < movies.QuerySet.size() - 1; i++) {
-            out << "Movie(" << movies.QuerySet.at(i).name << "), ";
+    if (movies.querySet.size() > 0) {
+        for (int i = 0; i < movies.querySet.size(); i++) {
+            out << "Movie(" << movies.querySet.at(i).name << "), ";
         }
-        // out << "Movie(" << movies.QuerySet.end().name <<  ")";
+        // out << "Movie(" << movies.querySet.end().name <<  ")";
     }
     out << "]";
     return out;

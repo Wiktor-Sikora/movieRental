@@ -30,7 +30,7 @@ class MoviesQuerySet {
         int userId;
 
     public:
-        std::vector<Movie> QuerySet;
+        std::vector<Movie> querySet;
 
         MoviesQuerySet(const std::string& searchPhrase, int userId = -1);
         ~MoviesQuerySet();
