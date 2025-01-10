@@ -97,10 +97,10 @@ MoviesQuerySet::~MoviesQuerySet() {}
 std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
     out << "[";
     if (movies.querySet.size() > 0) {
-        for (int i = 0; i < movies.querySet.size(); i++) {
+        for (int i = 0; i < movies.querySet.size() - 1; i++) {
             out << "Movie(" << movies.querySet.at(i).name << "), ";
         }
-        // out << "Movie(" << movies.querySet.end().name <<  ")";
+        out << "Movie(" << movies.querySet.at(movies.querySet.size() - 1).name <<  ")";
     }
     out << "]";
     return out;

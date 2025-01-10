@@ -6,7 +6,7 @@
 #include "movies.h"
 
 int main() {
-    MoviesQuerySet movies("oj");
+    MoviesQuerySet movies("Ojciec chrzestny II");
     std::cout << movies.querySet.size() << "\n";
     
     std::cout << movies << "\n";
