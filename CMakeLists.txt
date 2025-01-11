@@ -19,6 +19,9 @@ add_executable(movieRentalApp
     src/db.cpp src/db.h 
     src/movies.cpp src/movies.h
     src/sqlite3.c src/sqlite3.h
+    src/menu.cpp src/menu.h
+    src/banners.h
+    src/consoleapperance.h
 )
 
 # Platform-specific configurations
