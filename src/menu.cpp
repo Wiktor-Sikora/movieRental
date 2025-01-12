@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <conio.h>
+
 
 #include "menu.h"
 #include "consoleapperance.h"
@@ -8,10 +8,15 @@
 
 #ifdef _WIN32
 #define CLEAR system("cls")
+#define GETCH _getch()
+#include <conio.h>
 #elif _WIN64
 #define CLEAR system("cls")
+#include <conio.h>
 #else
 #define CLEAR std::system("clear")
+#define GETCH getch()
+#include <curses.h>
 #endif
 
 
@@ -160,10 +165,10 @@ void Menu::navigation() {
         while (true) {
             deafult();
 
-            int key = _getch();
+            int key = GETCH;
 
             if (key == 224) { // Special key
-                key = _getch();
+                key = GETCH;
                 switch (key) {
                 case 72: // Up arrow
                     selectedOption = (selectedOption - 1 + numOptions) % numOptions;

@@ -1,12 +1,31 @@
 #ifndef CONSOLE_APEERANCE_H
 #define CONSOLE_APEERANCE_H
+
+#ifdef _WIN32
 #include <Windows.h>
+#elif _WIN64
+#include <Windows.h>
+#else
+#include <stdio.h>
+#endif
 
 class ConsoleAppearance {
 public:
+    
+    enum Color{
+        BLACK = 0, RED = 4, WHITE = 7
+    };
+
     static void SetColor(int textColor, int bgColor) {
+#ifdef _WIN32
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
+#elif _WIN64
+        HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
+#else
+        std::cout << "\033[" << (30 + textColor) << ";" << (40 + bgColor) << "m";
+#endif
     }
     
     static void centerText(const std::string& text, int width = 32) {
