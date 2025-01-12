@@ -161,21 +161,16 @@ void Menu::greetingUser(){
     std::cout << greetings <<  std::endl;
 }
 
+#ifdef _WIN32
 void Menu::navigation() {
         while (true) {
             deafult();
-
-#ifdef __linux__
-initscr();
-#endif
 
             int key = GETCH;
 
             if (key == 224) { // Special key
                 key = GETCH;
-#ifdef __linux__
-endwin();
-#endif
+
                 switch (key) {
                 case 72: // Up arrow
                     selectedOption = (selectedOption - 1 + numOptions) % numOptions;
@@ -204,3 +199,82 @@ endwin();
             }
         }
     }
+#elif _WIN64
+void Menu::navigation() {
+        while (true) {
+            deafult();
+
+            int key = GETCH;
+
+            if (key == 224) { // Special key
+                key = GETCH;
+
+                switch (key) {
+                case 72: // Up arrow
+                    selectedOption = (selectedOption - 1 + numOptions) % numOptions;
+                    break;
+                case 80: // Down arrow
+                    selectedOption = (selectedOption + 1) % numOptions;
+                    break;
+                }
+            } else if (key == 13) { // Enter
+                if (options[selectedOption] == "Exit") {
+                    std::cout << "Thank you for visiting! Goodbye\n";
+                    break;
+                }
+                else if(options[selectedOption] == "Sign Up"){
+                    signUp();
+                }else if(options[selectedOption] == "Sign In"){
+                    signIn();
+                }else if(options[selectedOption] == "Log Out"){
+                    isLoggedIn = false;
+                    isAdmin = false;
+                    updateMenuOptions();
+                } else {
+                    std::cout << "You have selected: " << options[selectedOption] << std::endl;
+                    system("pause");
+                }
+            }
+        }
+    }
+
+#else
+void Menu::navigation() {
+    while (true) {
+        deafult();
+
+        // Initialize curses
+        initscr();
+        noecho();
+        cbreak();
+        keypad(stdscr, TRUE); // Enable special keys
+
+        int key = GETCH;
+
+        endwin(); // End curses mode
+
+        if (key == KEY_UP) {
+            selectedOption = (selectedOption - 1 + numOptions) % numOptions;
+        } else if (key == KEY_DOWN) {
+            selectedOption = (selectedOption + 1) % numOptions;
+        } else if (key == 10) { // Enter key
+            if (options[selectedOption] == "Exit") {
+                std::cout << "Thank you for visiting! Goodbye\n";
+                break;
+            } else if (options[selectedOption] == "Sign Up") {
+                signUp();
+            } else if (options[selectedOption] == "Sign In") {
+                signIn();
+            } else if (options[selectedOption] == "Log Out") {
+                isLoggedIn = false;
+                isAdmin = false;
+                updateMenuOptions();
+            } else {
+                std::cout << "You have selected: " << options[selectedOption] << std::endl;
+                std::cin.get();
+            }
+        }
+    }
+}
+
+#endif
