@@ -165,10 +165,17 @@ void Menu::navigation() {
         while (true) {
             deafult();
 
+#ifdef __linux__
+initscr();
+#endif
+
             int key = GETCH;
 
             if (key == 224) { // Special key
                 key = GETCH;
+#ifdef __linux__
+endwin();
+#endif
                 switch (key) {
                 case 72: // Up arrow
                     selectedOption = (selectedOption - 1 + numOptions) % numOptions;
