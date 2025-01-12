@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <format>
+
 #include "movies.h"
 #include "db.h"
 
@@ -14,20 +15,18 @@ class User {
     public:
         std::string login;
         bool isAdmin;
-        bool isBlocked;
         bool isAuthenticated;
 
         User(std::string login, bool isAdmin=false, bool isBlocked=false, int id=-1): 
-            login(login), isAdmin(isAdmin), isBlocked(isBlocked), id(id) {};
+            login(login), isAdmin(isAdmin), id(id) {};
         ~User();
 
-        void saveToDb() const;
+        void saveToDb(std::string password = "") const;
         void deleteMovie() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);
         bool registerUser(std::string login, std::string password);
         void rentMovie(int movieId);
-        void 
 };
  
 bool userExists(std::string login) {
@@ -39,6 +38,5 @@ bool userExists(std::string login) {
         return false;
     }
 }
-
 
 #endif

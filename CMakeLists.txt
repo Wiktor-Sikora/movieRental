@@ -31,6 +31,7 @@ add_executable(movieRentalApp
     src/menu.cpp src/menu.h
     src/banners.h
     src/consoleapperance.h
+    src/users.cpp src/users.h
 )
 
 if(UNIX)
