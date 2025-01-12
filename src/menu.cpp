@@ -16,7 +16,7 @@
 #else
 #define CLEAR std::system("clear")
 #define GETCH getch()
-#include <curses.h>
+#include <ncurses.h>
 #endif
 
 

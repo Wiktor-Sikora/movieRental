@@ -12,6 +12,15 @@ project(movieRental VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Platform-specific configurations
+if(WIN32)
+    message(STATUS "Configuring for Windows")
+elseif(UNIX)
+    message(STATUS "Configuring for Linux")
+    find_package(Curses REQUIRED)
+    include_directories(${CURSES_INCLUDE_DIR})
+endif()
+
 # executable target
 add_executable(movieRentalApp 
     src/main.cpp 
@@ -24,12 +33,6 @@ add_executable(movieRentalApp
     src/consoleapperance.h
 )
 
-# Platform-specific configurations
-if(WIN32)
-    message(STATUS "Configuring for Windows")
-elseif(UNIX)
-    message(STATUS "Configuring for Linux/Unix")
+if(UNIX)
+    target_link_libraries(movieRentalApp ${CURSES_LIBRARIES})
 endif()
-
-# install rules
-# install(TARGETS MyApp DESTINATION bin)
