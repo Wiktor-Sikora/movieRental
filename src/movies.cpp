@@ -18,10 +18,10 @@ Movie::Movie(
 Movie::~Movie() {}
 
 void Movie::saveToDb() const {
-    SQLiteDb db_handler("database.db");
+    SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
-        db_handler.execute(
+        DbHandler.execute(
             std::format("UPDATE movies SET\
                 name='{}', description='{}',\
                 released={}, price={}, in_stock={}\
@@ -34,7 +34,7 @@ void Movie::saveToDb() const {
             this->id
         ));
     } else {
-        db_handler.execute(
+        DbHandler.execute(
             std::format("INSERT INTO movies\
                 (name, description, released, price, in_stock)\
                 VALUES('{}', '{}', {}, {}, {});", 
@@ -48,17 +48,17 @@ void Movie::saveToDb() const {
         // sqlite3_last_insert_rowid() or some shit like that
     }
 
-    db_handler.close();
+    DbHandler.close();
 }
 
 void Movie::deleteMovie() const {
-    SQLiteDb db_handler("database.db");
+    SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
-        db_handler.execute(std::format("DELETE FROM movies WHERE id={};", this->id));
+        DbHandler.execute(std::format("DELETE FROM movies WHERE id={};", this->id));
     }
 
-    db_handler.close();
+    DbHandler.close();
 }
 
 /**
@@ -68,12 +68,12 @@ void Movie::deleteMovie() const {
  * @param userId gets movies that are rented by a user
 */
 MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
-    SQLiteDb db_handler("database.db");
+    SQLiteDb DbHandler("database.db");
     std::vector<std::vector<std::string>> rows;
 
     if (userId == - 1) {
         std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);        
-        rows = db_handler.query(sqlQuery); 
+        rows = DbHandler.query(sqlQuery); 
     } else {
         // TODO: 
     }
@@ -89,7 +89,7 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
         ));
     }
 
-    db_handler.close();
+    DbHandler.close();
 }
 
 MoviesQuerySet::~MoviesQuerySet() {}

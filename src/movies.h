@@ -22,6 +22,7 @@ class Movie {
 
         void deleteMovie() const;
         void saveToDb() const;
+        int getId() const {return this->id;};
 };
 
 class MoviesQuerySet {

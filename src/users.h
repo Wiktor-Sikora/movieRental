@@ -22,11 +22,14 @@ class User {
         ~User();
 
         void saveToDb(std::string password = "") const;
-        void deleteMovie() const;
+        void deleteUser() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);
-        bool registerUser(std::string login, std::string password);
         void rentMovie(int movieId);
+        void unRentMovie(int movieID);
+
+        // time manipulation
+        
 };
  
 bool userExists(std::string login) {
