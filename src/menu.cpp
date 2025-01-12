@@ -80,21 +80,24 @@ void Menu::loginChecker(std::string login){
         ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n" << "Your login CANNOT be empty" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
-        PAUSE;        signUp();
+        PAUSE;        
+        signUp();
     }
     for (char c : login) {
         if (!isalnum(c)) {
             ConsoleAppearance::SetColor(4, 0);
             std::cout << "\n" << "Your login contains characters that are not allowed" << std::endl;
             ConsoleAppearance::SetColor(7, 0);
-            PAUSE;            signUp();
+            PAUSE;            
+            signUp();
         }
     }
     if(login.length()<3 || login.length()>20){
         ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n" << "Your login must be between 3 and 20 characters" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
-        PAUSE;        signUp();
+        PAUSE;        
+        signUp();
     }
 }
 
@@ -104,12 +107,14 @@ void Menu::passwordChecker(std::string password, std::string confPassword){
             ConsoleAppearance::SetColor(4, 0);
             std::cout << "\n" << "Your password CANNOT be empty" << std::endl;
             ConsoleAppearance::SetColor(7, 0);
-            PAUSE;            signUp();
+            PAUSE;            
+            signUp();
         }else if(password!=confPassword){
             ConsoleAppearance::SetColor(4, 0);
             std::cout << "\n" << "Passwords do not match" << std::endl;
             ConsoleAppearance::SetColor(7, 0);
-            PAUSE;            signUp();
+            PAUSE;            
+            signUp();
         }
 
         for (char c : password) {
@@ -117,7 +122,8 @@ void Menu::passwordChecker(std::string password, std::string confPassword){
                 ConsoleAppearance::SetColor(4, 0);
                 std::cout << "\n" << "Your password contains characters that are not allowed" << std::endl;
                 ConsoleAppearance::SetColor(7, 0);
-                PAUSE;                signUp();
+                PAUSE;                
+                signUp();
             }
         }
 
@@ -125,10 +131,12 @@ void Menu::passwordChecker(std::string password, std::string confPassword){
             ConsoleAppearance::SetColor(4, 0);
             std::cout << "\n" << "Your password must be at least 8 characters" << std::endl;
             ConsoleAppearance::SetColor(7, 0);
-            PAUSE;            signUp();
+            PAUSE;            
+            signUp();
         }else{
             std::cout << "\n" << "User successfully created" << std::endl;
-            PAUSE;            signIn();
+            PAUSE;            
+            signIn();
         }
 }
 
@@ -144,7 +152,8 @@ void Menu::signIn(){
     std::cout << "\n" << "You have successfully signed in" << "\n" << std::endl;
     isLoggedIn = true;
     updateMenuOptions();
-    PAUSE;    navigation();
+    PAUSE;    
+    navigation();
 }
 
 void Menu::greetingUser(){
