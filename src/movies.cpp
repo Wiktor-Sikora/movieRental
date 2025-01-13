@@ -63,8 +63,6 @@ void Movie::deleteMovie() const {
 }
 
 
-
-
 /**
  * Fills the class with Movie objects
  * 

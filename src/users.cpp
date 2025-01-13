@@ -12,14 +12,11 @@ void User::saveToDb(std::string password) const {
 
     if (this->id != -1) {
         std::string sql = std::format(
-            "UPDATE movies SET login='{}', is_admin={}",
+            "UPDATE users SET login='{}', is_admin={} WHERE id={};",
             this->login,
-            (this->isAdmin ? 1 : 0)
+            (this->isAdmin ? 1 : 0),
+            this->id
         );
-        if (password != "") {
-            sql += std::format(", password='{}'", password);
-        };
-        sql += ";";
         DbHandler.execute(sql);
     } else {
         std::string sql = std::format("INSERT INTO users (login, is_admin) VALUES('{}', {});",

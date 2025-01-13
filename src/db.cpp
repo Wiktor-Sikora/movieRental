@@ -71,3 +71,4 @@ std::vector<std::vector<std::string>> SQLiteDb::query(const std::string& sql) {
 
     return result;
 }
+
