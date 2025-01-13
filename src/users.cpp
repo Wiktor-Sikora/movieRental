@@ -58,7 +58,19 @@ bool User::authenticateUser(std::string password) {
         DbHandler.close();
         return true;
     } else {
-        return false;
         DbHandler.close();
+        return false;
+    };
+}
+
+bool userExists(std::string login) {
+    SQLiteDb dbHandler("database.db");
+    std::string sql = std::format("SELECT login FROM users WHERE login={}", login);
+    if (dbHandler.execute(sql)) {
+        dbHandler.close();
+        return true;
+    } else {
+        dbHandler.close();
+        return false;
     }
 }

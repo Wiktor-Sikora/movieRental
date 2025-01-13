@@ -26,14 +26,6 @@ class User {
         bool authenticateUser(std::string password);
 };
  
-bool userExists(std::string login) {
-    SQLiteDb dbHandler("database.db");
-    std::string sql = std::format("SELECT login FROM users WHERE login={}", login);
-    if (dbHandler.execute(sql)) {
-        return true;
-    } else {
-        return false;
-    }
-}
+bool userExists(std::string login);
 
 #endif

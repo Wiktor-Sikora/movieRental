@@ -4,7 +4,9 @@
 #include <iostream>
 #include <vector>
 #include <string>
+
 #include "db.h"
+#include "users.h"
 
 class Movie {
     private:
@@ -23,6 +25,8 @@ class Movie {
         void deleteMovie() const;
         void saveToDb() const;
         int getId() const {return this->id;};
+        void rentMovie(int userId);
+        void unRentMovie(int userId);
 };
 
 class MoviesQuerySet {
