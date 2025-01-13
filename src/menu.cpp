@@ -172,7 +172,7 @@ void Menu::signIn(){
 
     if (userExists(login)){
         currentUser = new User(login); // Zakładamy, że login istnieje i przypisujemy użytkownika
-        currentUser->isAuthenticated = true; // Logujemy
+        currentUser->authenticateUser(password); // Logujemy
         updateMenuOptions();
         std::cout << "\n"<< "You have successfully signed in" << "\n"<< std::endl;
     }else{

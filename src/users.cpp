@@ -52,9 +52,11 @@ void User::deleteUser() const {
 bool User::authenticateUser(std::string password) {
     SQLiteDb DbHandler("database.db");
 
-    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id FROM users WHERE login='{}' AND password='{}';", this->login, password));
+    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin FROM users WHERE login='{}' AND password='{}';", this->login, password));
     if (rows.size() > 0) {
         this->id = stoi(rows.at(0).at(0));
+        this->isAdmin = stoi(rows.at(0).at(1));
+        this->isAuthenticated = true;
         DbHandler.close();
         return true;
     } else {
