@@ -6,6 +6,7 @@
 #include "consoleapperance.h"
 #include "banners.h"
 #include "users.h"
+#include "offer.h"
 
 #ifdef _WIN32
 #define CLEAR system("cls")
@@ -166,7 +167,9 @@ void Menu::signIn(){
     std::getline (std::cin, login);
 
     if (!userExists(login)){
+        ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n"<< "User with this login doesn't exist" << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
         PAUSE;
         this->signIn();
         return;
@@ -181,7 +184,9 @@ void Menu::signIn(){
         updateMenuOptions();
         std::cout << "\n"<< "You have successfully signed in" << "\n"<< std::endl;
     } else {
+        ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n"<< "Invalid login or password" << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
         delete currentUser;
     }
     
@@ -196,6 +201,21 @@ void Menu::greetingUser(){
     ConsoleAppearance::SetColor(9, 0);
     std::cout << std::string(padding, ' ');
     std::cout << greetings <<  std::endl;
+}
+
+void search(){
+    std::string phrase;
+    std::cout << "Type a name of the movie you want to rent:" << std::endl;
+    std::getline (std::cin, phrase);
+    MoviesQuerySet movies(phrase);
+}
+
+void distplayList(){
+
+}
+
+void Menu::movieMenu() {
+    movieOffer.displayMovies();
 }
 
 #ifdef _WIN32
@@ -221,7 +241,9 @@ void Menu::navigation() {
                     std::cout << "Thank you for visiting! Goodbye\n";
                     break;
                 }
-                else if(options[selectedOption] == "Sign Up"){
+                else if(options[selectedOption] == "Offer"){
+                    movieMenu();
+                }else if(options[selectedOption] == "Sign Up"){
                     signUp();
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();

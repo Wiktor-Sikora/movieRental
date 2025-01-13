@@ -7,10 +7,11 @@
 #include "menu.h"
 
 int main() {
-    // MoviesQuerySet movies("Ojciec chrzestny II");
+    // MoviesQuerySet movies("Ojciec ");
     // std::cout << movies.querySet.size() << "\n";
-    
-    // std::cout << movies << "\n";
+    // for (auto movie : movies.querySet) {
+    //     std::cout << movie.description << "\n";
+    // }
 
     Menu mainMenu(nullptr, 0);
     mainMenu.updateMenuOptions();

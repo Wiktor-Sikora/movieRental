@@ -5,6 +5,8 @@
 #include <iostream>
 #include <vector>
 #include "users.h"
+#include "movies.h"
+#include "offer.h"
 
 class MenuOptions;
 
@@ -16,7 +18,7 @@ private:
     int numOptions;
     int selectedOption;
     MenuOptions* menuOptions;
-    
+    Offer movieOffer;
 
 public:
 
@@ -31,6 +33,8 @@ public:
     void passwordChecker(std::string password, std::string confPassword);
     void signIn();
     void greetingUser();
+    void displayMovie();
+    void movieMenu();
     void navigation();
 };
 
@@ -60,6 +64,5 @@ public:
         return {"Offer", "Sign Up", "Sign In", "Exit"};
     }
 };
-
 
 #endif
