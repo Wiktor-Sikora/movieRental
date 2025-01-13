@@ -4,21 +4,23 @@
 
 #include <iostream>
 #include <vector>
+#include "users.h"
 
 class Menu
 {
 private:
     std::vector<std::string> options;
+    User currentUser;
     int numOptions;
     int selectedOption;
-    bool isLoggedIn;
-    bool isAdmin;
     
 
 public:
-    Menu(const std::string optionsArray[], int numberOfOptions) {
-        isLoggedIn = false;
-        isAdmin = false;
+    // User currentUser(std::string login, bool isAdmin, bool isAuthenticated);
+
+    Menu(const std::string optionsArray[], int numberOfOptions){
+        currentUser.isAuthenticated = false;
+        currentUser.isAdmin = false;
         numOptions = numberOfOptions;
         options.assign(optionsArray, optionsArray + numberOfOptions);
         selectedOption = 0;

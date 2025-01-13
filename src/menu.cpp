@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "consoleapperance.h"
 #include "banners.h"
+#include "users.h"
 
 #ifdef _WIN32
 #define CLEAR system("cls")
@@ -28,7 +29,7 @@
 void Menu::deafult() {
         CLEAR;
         displayHeader();
-        if(isLoggedIn){
+        if(currentUser.isAuthenticated){
             greetingUser();
         }
         for (int i = 0; i < numOptions; i++) {
@@ -45,8 +46,8 @@ void Menu::deafult() {
     }
 
 void Menu::updateMenuOptions() {
-        if (isLoggedIn) {
-            if (isAdmin) {
+        if (currentUser.isAuthenticated) {
+            if (currentUser.isAdmin) {
                 this->options = {"Offer", "Edit Offer", "Rental History", "Financial Balances", "Log Out"};
             } else {
                 this->options = {"Offer", "Rental Status", "Rental History", "Log Out"};
@@ -61,6 +62,7 @@ void Menu::updateMenuOptions() {
 void Menu::signUp(){
      CLEAR;
      std::string login;
+     User logUser(login, currentUser.isAdmin);
      std::string password;
      std::string confPassword;
      displaySignUpBanner();
@@ -95,6 +97,13 @@ void Menu::loginChecker(std::string login){
     if(login.length()<3 || login.length()>20){
         ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n" << "Your login must be between 3 and 20 characters" << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;        
+        signUp();
+    }
+    if(userExists(login)){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "The user arleady exist" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
         PAUSE;        
         signUp();
@@ -148,9 +157,10 @@ void Menu::signIn(){
     std::cout << "Login: ";
     std::getline (std::cin, login);
     std::cout << "Password: ";
-    std::getline (std::cin, password); 
+    std::getline (std::cin, password);
+
     std::cout << "\n" << "You have successfully signed in" << "\n" << std::endl;
-    isLoggedIn = true;
+    currentUser.isAuthenticated = true;
     updateMenuOptions();
     PAUSE;    
     navigation();
@@ -193,8 +203,8 @@ void Menu::navigation() {
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();
                 }else if(options[selectedOption] == "Log Out"){
-                    isLoggedIn = false;
-                    isAdmin = false;
+                    currentUser.isAuthenticated = false;
+                    currentUser.isAdmin = false;
                     updateMenuOptions();
                 } else {
                     std::cout << "You have selected: " << options[selectedOption] << std::endl;
@@ -230,8 +240,8 @@ void Menu::navigation() {
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();
                 }else if(options[selectedOption] == "Log Out"){
-                    isLoggedIn = false;
-                    isAdmin = false;
+                    currentUser.isAuthenticated = false;
+                    currentUser.isAdmin = false;
                     updateMenuOptions();
                 } else {
                     std::cout << "You have selected: " << options[selectedOption] << std::endl;
@@ -269,8 +279,8 @@ void Menu::navigation() {
             } else if (options[selectedOption] == "Sign In") {
                 signIn();
             } else if (options[selectedOption] == "Log Out") {
-                isLoggedIn = false;
-                isAdmin = false;
+                currentUser.isAuthenticated = false;
+                currentUser.isAdmin = false;
                 updateMenuOptions();
             } else {
                 std::cout << "You have selected: " << options[selectedOption] << std::endl;

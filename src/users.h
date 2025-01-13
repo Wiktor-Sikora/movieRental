@@ -10,14 +10,13 @@
 class User {
     private:
         int id;
-
     public:
         std::string login;
         bool isAdmin;
         bool isAuthenticated;
 
-        User(std::string login, bool isAdmin=false, bool isBlocked=false, int id=-1): 
-            login(login), isAdmin(isAdmin), id(id) {};
+        User(std::string login, bool isAdmin=false, bool isAuthenticated=false, int id=-1): 
+            login(login), isAdmin(isAdmin), isAuthenticated(isAuthenticated), id(id) {};
         ~User();
 
         void saveToDb(std::string password = "") const;
