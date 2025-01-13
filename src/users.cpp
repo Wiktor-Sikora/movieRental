@@ -7,6 +7,9 @@
 #include "users.h"
 #include "db.h"
 
+User::~User() {
+}
+
 void User::saveToDb(std::string password) const {
     SQLiteDb DbHandler("database.db");
 

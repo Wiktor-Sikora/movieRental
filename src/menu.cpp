@@ -29,7 +29,8 @@
 void Menu::deafult() {
         CLEAR;
         displayHeader();
-        if(currentUser.isAuthenticated){
+        if (currentUser != nullptr && currentUser->isAuthenticated)
+        {
             greetingUser();
         }
         for (int i = 0; i < numOptions; i++) {
@@ -46,14 +47,20 @@ void Menu::deafult() {
     }
 
 void Menu::updateMenuOptions() {
-        if (currentUser.isAuthenticated) {
-            if (currentUser.isAdmin) {
+        if (currentUser != nullptr && currentUser->isAuthenticated)
+        {
+            if (currentUser->isAdmin)
+            {
                 this->options = {"Offer", "Edit Offer", "Rental History", "Financial Balances", "Log Out"};
-            } else {
+            }
+            else
+            {
                 this->options = {"Offer", "Rental Status", "Rental History", "Log Out"};
             }
-        } else {
-            this->options = {"Offer", "Sign Up", "Sign In", "Exit"};
+        }
+        else
+        {
+        this->options = {"Offer", "Sign Up", "Sign In", "Exit"};
         }
         numOptions = options.size();
         selectedOption = 0;
@@ -62,7 +69,6 @@ void Menu::updateMenuOptions() {
 void Menu::signUp(){
      CLEAR;
      std::string login;
-     User logUser(login, currentUser.isAdmin);
      std::string password;
      std::string confPassword;
      displaySignUpBanner();
@@ -75,6 +81,10 @@ void Menu::signUp(){
      std::cout << "Confirm password: ";
      std::getline (std::cin, confPassword);
      passwordChecker(password, confPassword);
+     currentUser = new User(login); // Tworzymy użytkownika
+     currentUser->isAuthenticated = true; // Ustawiamy, że użytkownik jest zalogowany
+     updateMenuOptions();
+     signIn();
 }
 
 void Menu::loginChecker(std::string login){
@@ -143,9 +153,9 @@ void Menu::passwordChecker(std::string password, std::string confPassword){
             PAUSE;            
             signUp();
         }else{
+            
             std::cout << "\n" << "User successfully created" << std::endl;
             PAUSE;            
-            signIn();
         }
 }
 
@@ -159,15 +169,20 @@ void Menu::signIn(){
     std::cout << "Password: ";
     std::getline (std::cin, password);
 
-    std::cout << "\n" << "You have successfully signed in" << "\n" << std::endl;
-    currentUser.isAuthenticated = true;
-    updateMenuOptions();
-    PAUSE;    
+    if (userExists(login)){
+        currentUser = new User(login); // Zakładamy, że login istnieje i przypisujemy użytkownika
+        currentUser->isAuthenticated = true; // Logujemy
+        updateMenuOptions();
+        std::cout << "\n"<< "You have successfully signed in" << "\n"<< std::endl;
+    }else{
+        std::cout << "\n"<< "Invalid login or password" << std::endl;
+    }
+    PAUSE;
     navigation();
 }
 
 void Menu::greetingUser(){
-    std::string user = "user";
+    std::string user = currentUser->login;
     std::string greetings = "Hello " + user + "!";
     int padding = (34-greetings.length())/2;
     ConsoleAppearance::SetColor(9, 0);
@@ -203,12 +218,13 @@ void Menu::navigation() {
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();
                 }else if(options[selectedOption] == "Log Out"){
-                    currentUser.isAuthenticated = false;
-                    currentUser.isAdmin = false;
+                    delete currentUser;
+                    currentUser = nullptr;
                     updateMenuOptions();
                 } else {
                     std::cout << "You have selected: " << options[selectedOption] << std::endl;
-                    PAUSE;                }
+                    PAUSE;                
+                    }
             }
         }
     }
@@ -240,8 +256,8 @@ void Menu::navigation() {
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();
                 }else if(options[selectedOption] == "Log Out"){
-                    currentUser.isAuthenticated = false;
-                    currentUser.isAdmin = false;
+                    delete currentUser;
+                    currentUser = nullptr;
                     updateMenuOptions();
                 } else {
                     std::cout << "You have selected: " << options[selectedOption] << std::endl;
@@ -279,8 +295,8 @@ void Menu::navigation() {
             } else if (options[selectedOption] == "Sign In") {
                 signIn();
             } else if (options[selectedOption] == "Log Out") {
-                currentUser.isAuthenticated = false;
-                currentUser.isAdmin = false;
+                delete currentUser;
+                currentUser = nullptr;
                 updateMenuOptions();
             } else {
                 std::cout << "You have selected: " << options[selectedOption] << std::endl;

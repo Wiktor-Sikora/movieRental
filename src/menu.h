@@ -10,17 +10,15 @@ class Menu
 {
 private:
     std::vector<std::string> options;
-    User currentUser;
+    User* currentUser;
     int numOptions;
     int selectedOption;
     
 
 public:
-    // User currentUser(std::string login, bool isAdmin, bool isAuthenticated);
 
     Menu(const std::string optionsArray[], int numberOfOptions){
-        currentUser.isAuthenticated = false;
-        currentUser.isAdmin = false;
+        currentUser = nullptr;
         numOptions = numberOfOptions;
         options.assign(optionsArray, optionsArray + numberOfOptions);
         selectedOption = 0;
