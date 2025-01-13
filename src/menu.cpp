@@ -82,8 +82,8 @@ void Menu::signUp(){
      std::getline (std::cin, confPassword);
      passwordChecker(password, confPassword);
      currentUser = new User(login);
-     currentUser->authenticateUser(password);
      currentUser->saveToDb(password);
+     currentUser->authenticateUser(password);
      updateMenuOptions();
      signIn();
 }
@@ -167,17 +167,27 @@ void Menu::signIn(){
     displaySignInBanner();
     std::cout << "Login: ";
     std::getline (std::cin, login);
+
+    if (!userExists(login)){
+        std::cout << "\n"<< "User with this login doesn't exist" << std::endl;
+        PAUSE;
+        this->signIn();
+        return;
+    } 
+
     std::cout << "Password: ";
     std::getline (std::cin, password);
 
-    if (userExists(login)){
-        currentUser = new User(login); // Zakładamy, że login istnieje i przypisujemy użytkownika
-        currentUser->authenticateUser(password); // Logujemy
+    currentUser = new User(login);
+
+    if (currentUser->authenticateUser(password)) {
         updateMenuOptions();
         std::cout << "\n"<< "You have successfully signed in" << "\n"<< std::endl;
-    }else{
+    } else {
         std::cout << "\n"<< "Invalid login or password" << std::endl;
+        delete currentUser;
     }
+    
     PAUSE;
     navigation();
 }
