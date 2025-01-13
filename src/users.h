@@ -19,7 +19,7 @@ class User {
             login(login), isAdmin(isAdmin), isAuthenticated(isAuthenticated), id(id) {};
         ~User();
 
-        void saveToDb(std::string password = "") const;
+        void saveToDb(std::string password);
         void deleteUser() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);

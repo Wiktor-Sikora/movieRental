@@ -81,8 +81,9 @@ void Menu::signUp(){
      std::cout << "Confirm password: ";
      std::getline (std::cin, confPassword);
      passwordChecker(password, confPassword);
-     currentUser = new User(login); // Tworzymy użytkownika
-     currentUser->isAuthenticated = true; // Ustawiamy, że użytkownik jest zalogowany
+     currentUser = new User(login);
+     currentUser->authenticateUser(password);
+     currentUser->saveToDb(password);
      updateMenuOptions();
      signIn();
 }
