@@ -12,8 +12,8 @@ class User {
         int id;
     public:
         std::string login;
-        bool isAdmin;
-        bool isAuthenticated;
+        bool isAdmin = false;
+        bool isAuthenticated = false;
 
         User(std::string login, bool isAdmin=false, bool isAuthenticated=false, int id=-1): 
             login(login), isAdmin(isAdmin), isAuthenticated(isAuthenticated), id(id) {};
