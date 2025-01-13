@@ -5,7 +5,6 @@
 #include <iostream>
 #include <format>
 
-#include "movies.h"
 #include "db.h"
 
 class User {
@@ -25,11 +24,6 @@ class User {
         void deleteUser() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);
-        void rentMovie(int movieId);
-        void unRentMovie(int movieID);
-
-        // time manipulation
-        
 };
  
 bool userExists(std::string login) {

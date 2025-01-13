@@ -62,11 +62,3 @@ bool User::authenticateUser(std::string password) {
         DbHandler.close();
     }
 }
-
-void User::rentMovie(int movieId) {
-    SQLiteDb DbHandler("database.db");
-
-    std::string sql = std::format("INSERT INTO rental (movie_id, user_id, date) VALUES({}, {}, '{}');", movieId, this->id);
-    
-    DbHandler.close();
-}

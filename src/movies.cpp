@@ -5,6 +5,7 @@
 
 #include "db.h"
 #include "movies.h"
+#include "users.h"
 
 Movie::Movie(
     const std::string& name, const std::string& description, 
@@ -60,6 +61,9 @@ void Movie::deleteMovie() const {
 
     DbHandler.close();
 }
+
+
+
 
 /**
  * Fills the class with Movie objects
