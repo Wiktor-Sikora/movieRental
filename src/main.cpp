@@ -12,11 +12,9 @@ int main() {
     
     // std::cout << movies << "\n";
 
-    std::string initialOptions[] = {"Offer", "Sign Up", "Sign In", "Exit"};
-    Menu menu(initialOptions, 4);
-
-    menu.updateMenuOptions(); 
-    menu.navigation();
+    Menu mainMenu(nullptr, 0);
+    mainMenu.updateMenuOptions();
+    mainMenu.navigation();
     
     return 0;
 }

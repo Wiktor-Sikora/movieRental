@@ -6,6 +6,8 @@
 #include <vector>
 #include "users.h"
 
+class MenuOptions;
+
 class Menu
 {
 private:
@@ -13,15 +15,13 @@ private:
     User* currentUser;
     int numOptions;
     int selectedOption;
+    MenuOptions* menuOptions;
     
 
 public:
 
-    Menu(const std::string optionsArray[], int numberOfOptions){
-        currentUser = nullptr;
-        numOptions = numberOfOptions;
-        options.assign(optionsArray, optionsArray + numberOfOptions);
-        selectedOption = 0;
+    Menu(const std::string optionsArray[], int numberOfOptions): currentUser(nullptr), numOptions(0), selectedOption(0), menuOptions(nullptr) {
+    options = {"Offer", "Sign Up", "Sign In", "Exit"}; 
     }
 
     void deafult();
@@ -33,5 +33,33 @@ public:
     void greetingUser();
     void navigation();
 };
+
+class MenuOptions {
+public:
+    virtual std::vector<std::string> getOptions() const = 0;
+    virtual ~MenuOptions() = default;
+};
+
+class AdminMenuOptions : public MenuOptions {
+public:
+    std::vector<std::string> getOptions() const override {
+        return {"Offer", "Edit Offer", "Rental History", "Financial Balances", "Log Out"};
+    }
+};
+
+class UserMenuOptions : public MenuOptions {
+public:
+    std::vector<std::string> getOptions() const override {
+        return {"Offer", "Rental Status", "Rental History", "Log Out"};
+    }
+};
+
+class GuestMenuOptions : public MenuOptions {
+public:
+    std::vector<std::string> getOptions() const override {
+        return {"Offer", "Sign Up", "Sign In", "Exit"};
+    }
+};
+
 
 #endif

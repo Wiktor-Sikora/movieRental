@@ -47,23 +47,20 @@ void Menu::deafult() {
     }
 
 void Menu::updateMenuOptions() {
-        if (currentUser != nullptr && currentUser->isAuthenticated)
-        {
-            if (currentUser->isAdmin)
-            {
-                this->options = {"Offer", "Edit Offer", "Rental History", "Financial Balances", "Log Out"};
-            }
-            else
-            {
-                this->options = {"Offer", "Rental Status", "Rental History", "Log Out"};
-            }
+    delete menuOptions;
+    if (currentUser != nullptr && currentUser->isAuthenticated) {
+        if (currentUser->isAdmin) {
+            menuOptions = new AdminMenuOptions();
+        }else {
+            menuOptions = new UserMenuOptions();
         }
-        else
-        {
-        this->options = {"Offer", "Sign Up", "Sign In", "Exit"};
-        }
-        numOptions = options.size();
-        selectedOption = 0;
+    }else {
+        menuOptions = new GuestMenuOptions();
+    }
+
+    options = menuOptions->getOptions();
+    numOptions = options.size();
+    selectedOption = 0;
     }
 
 void Menu::signUp(){
