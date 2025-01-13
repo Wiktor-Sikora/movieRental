@@ -30,7 +30,7 @@ void User::saveToDb(std::string password) {
             sql.insert(34, ", password");
             sql.insert(65, std::format(", '{}'", password));
         };
-        
+
         DbHandler.execute(sql);
         // TODO: update id after insert with
         // sqlite3_last_insert_rowid() or some shit like that
