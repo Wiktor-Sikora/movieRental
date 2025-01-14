@@ -32,13 +32,6 @@
 
 void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
     std::vector<std::string> options = {"Rent", "Return"};
-    // if(&currentUser != 0){
-    //     options.push_back("Rent");
-    //     options.push_back("Return");
-    //     }else{
-    //         options.push_back("Return");
-    //     }
-
     int selectedOption = 0;
     while(true){
         SYSTEM;
