@@ -1,1 +1,1 @@
-was_db_initilized = 1
+was_db_initilized = 0
