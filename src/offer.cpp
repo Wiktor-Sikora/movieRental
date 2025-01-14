@@ -29,16 +29,113 @@
 
 
 void Offer::displayMovieDetails(const Movie& movie) {
-    SYSTEM;
-    CLEAR;
-    std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
-    std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
-    std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+    std::vector<std::string> options = {"Rent", "Return"};
+    int selectedOption = 0;
+    while(true){
+        SYSTEM;
+        CLEAR;
+        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+        std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
+        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
 
-    std::cout << "Release date: " << movie.released << "\n\n";
-    std::cout << "Description\n" << movie.description << "\n\n";
-    std::cout << "$" << movie.price << " | " << movie.stock << " in stock" << std::endl;
+        std::cout << "Release date: " << movie.released << "\n\n";
+        std::cout << "Description\n" << movie.description << "\n\n";
+        std::cout << "$" << movie.price << " | " << movie.stock << " in stock" << std::endl;
+        for (int i = 0; i < options.size(); ++i) {
+            if (i == selectedOption) {
+                ConsoleAppearance::SetColor(0, 7);
+                std::cout << " " << options[i] << " " << std::endl;
+            } else {
+                ConsoleAppearance::SetColor(7, 0);
+                std::cout << " " << options[i] << std::endl;
+            }
+        }
+        ConsoleAppearance::SetColor(7, 0);
+
+#ifdef _WIN32
+        int key = GETCH;
+
+        if (key == 224) { 
+            key = GETCH;
+            if (key == 72) {
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+            } else if (key == 80) {
+                selectedOption = (selectedOption + 1) % options.size();
+            }
+        } else if (key == 13) {
+            if (options[selectedOption] == "Rent") {
+                if (movie.stock > 0) {
+                    std::cout << "Your purchase was successful!" << std::endl;
+                } else {
+                    std::cout << "Out of stock!" << std::endl;
+                }
+                break;
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
+        } else if (key == 27) {
+            break;
+        }
+#elif _WIN64
+        int key = GETCH;
+
+        if (key == 224) { 
+            key = GETCH;
+            if (key == 72) {
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+            } else if (key == 80) {
+                selectedOption = (selectedOption + 1) % options.size();
+            }
+        } else if (key == 13) {
+            if (options[selectedOption] == "Rent") {
+                if (movie.stock > 0) {
+                    std::cout << "Your purchase was successful!" << std::endl;
+                } else {
+                    std::cout << "Out of stock!" << std::endl;
+                }
+                break;
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
+        } else if (key == 27) {
+            break;
+        }
+#else
+        initscr();
+        noecho();
+        cbreak();
+        keypad(stdscr, TRUE);
+
+        int key = GETCH;
+
+        endwin();
+
+            if (key == KEY_UP) {
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+            } else if (key == KEY_DOWN) {
+                selectedOption = (selectedOption + 1) % options.size();
+            }
+             else if (key == 10) {
+                if (options[selectedOption] == "Rent") {
+                    if (movie.stock > 0) {
+                        std::cout << "Your purchase was successful!" << std::endl;
+                    } else {
+                        std::cout << "Out of stock!" << std::endl;
+                    }
+                    break;
+                } else if (options[selectedOption] == "Return") {
+                    break;
+                }
+            } else if (key == 27) {
+                break;
+            }
+#endif
+
+
+    }
 }
+
+
 
 void Offer::displayMovies() {
     SYSTEM;
@@ -116,7 +213,7 @@ void Offer::displayMovies() {
             selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
         } else if (key == KEY_DOWN) {
             selectedIndex = (selectedIndex + 1) % movies.querySet.size();
-        } else if (key == '\n' || key == KEY_ENTER) { 
+        } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { 

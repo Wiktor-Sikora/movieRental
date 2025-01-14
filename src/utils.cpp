@@ -6,7 +6,7 @@
 
 time_t parseDateTime(const char* datetimeString, const char* format) {
     struct tm tmStruct;
-    strptime(datetimeString, format, &tmStruct);
+    //strptime(datetimeString, format, &tmStruct);
     return mktime(&tmStruct);
 }
 
