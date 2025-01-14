@@ -32,6 +32,13 @@
 
 void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
     std::vector<std::string> options = {"Rent", "Return"};
+    // if(&currentUser != 0){
+    //     options.push_back("Rent");
+    //     options.push_back("Return");
+    //     }else{
+    //         options.push_back("Return");
+    //     }
+
     int selectedOption = 0;
     while(true){
         SYSTEM;
@@ -42,7 +49,8 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
 
         std::cout << "Release date: " << movie.released << "\n\n";
         std::cout << "Description\n" << movie.description << "\n\n";
-        std::cout << "$" << movie.price << " | " << movie.stock << " in stock" << std::endl;
+        std::cout << "$" << movie.price << " | " << movie.stock << " in stock\n" << std::endl;
+
         for (int i = 0; i < options.size(); ++i) {
             if (i == selectedOption) {
                 ConsoleAppearance::SetColor(0, 7);
@@ -53,7 +61,6 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                 std::cout << " " << options[i] << std::endl;
             }
         }
-
 #ifdef _WIN32
         int key = GETCH;
 
@@ -66,11 +73,17 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0) {
+                if (movie.stock > 0 && &currentUser != 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
-                } else {
+                } else if(movie.stock == 0) {
+                    ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Out of stock!" <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "\nYou must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
                 }
                 break;
             } else if (options[selectedOption] == "Return") {
@@ -91,10 +104,17 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0) {
+                if (movie.stock > 0 && &currentUser != 0) {
+                    movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
-                } else {
-                    std::cout << "Out of stock!" << std::endl;
+                } else if(movie.stock == 0) {
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "Out of stock!" <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "\nYou must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
                 }
                 break;
             } else if (options[selectedOption] == "Return") {
@@ -120,11 +140,18 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
              else if (key == 10) {
                 if (options[selectedOption] == "Rent") {
-                    if (movie.stock > 0) {
-                        std::cout << "Your purchase was successful!" << std::endl;
-                    } else {
-                        std::cout << "Out of stock!" << std::endl;
-                    }
+                    if (movie.stock > 0 && &currentUser != 0) {
+                    movie.rentMovie(currentUser.getId());
+                    std::cout << "Your purchase was successful!" << std::endl;
+                } else if(movie.stock == 0) {
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "Out of stock!" <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "\nYou must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }
                     break;
                 } else if (options[selectedOption] == "Return") {
                     break;
@@ -133,11 +160,18 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                 break;
             }
 #endif
-
-
     }
-}
+    }
+    
+        // // SYSTEM;
+        // // CLEAR;
+        // std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+        // std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
+        // std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
 
+        // std::cout << "Release date: " << movie.released << "\n\n";
+        // std::cout << "Description\n" << movie.description << "\n\n";
+        // std::cout << "$" << movie.price << " | " << movie.stock << " in stock" << std::endl;
 
 
 void Offer::displayMovies(User &currentUser) {
@@ -156,7 +190,6 @@ void Offer::displayMovies(User &currentUser) {
         PAUSE;
         displayMovies(currentUser);
     }
-
     int selectedIndex = 0;
     while (true) {
         CLEAR;
@@ -185,7 +218,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
         } else if (key == 27) { //Esc
-            break;
+            return;
         }
 #elif _WIN64
     int key = GETCH;
@@ -200,7 +233,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
-            break;
+            return;
         }
 #else
         initscr();
@@ -220,7 +253,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { 
-            break;
+            return;
         }
 #endif
     }
