@@ -18,4 +18,6 @@ time_t parseDateTime(const char* datetimeString, const char* format = "%Y-%m-%d 
 /// @return std::string
 std::string DateTime(time_t time, const char* format = "%Y-%m-%d %H:%M:%S");
 
+void initilizeDbOnFirstRun();
+    
 #endif

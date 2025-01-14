@@ -5,8 +5,11 @@
 #include "db.h"
 #include "movies.h"
 #include "menu.h"
+#include "utils.h"
 
 int main() {
+    initilizeDbOnFirstRun();
+
     // MoviesQuerySet movies("Ojciec ");
     // std::cout << movies.querySet.size() << "\n";
     // for (auto movie : movies.querySet) {
