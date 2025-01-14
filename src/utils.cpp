@@ -23,20 +23,30 @@ std::string DateTime(time_t time, const char* format) {
 }
 
 void initilizeDbOnFirstRun() {
-    std::ifstream configFile("config.txt");
-    std::string fileContent{std::istreambuf_iterator<char>(configFile), std::istreambuf_iterator<char>()};
+    std::ifstream configFile1("config.txt");
+    std::string fileContent{std::istreambuf_iterator<char>(configFile1), std::istreambuf_iterator<char>()};
 
     if(std::stoi(std::string{fileContent[20]}) == 1) {
-        configFile.close();
+        configFile1.close();
         return;
     }
+    configFile1.close();
 
-    configFile.close();
-    fileContent.erase();
+    std::ofstream configFile2("config.txt", std::ios::trunc);
+    configFile2 << "was_db_initilized = 1";
+    configFile2.close();
 
     std::ifstream sqlFile("src/db/scheme.sql");
-    std::string fileContent{std::istreambuf_iterator<char>(sqlFile), std::istreambuf_iterator<char>()};
-    std::cout << fileContent;    
+    fileContent = std::string(std::istreambuf_iterator<char>(sqlFile), std::istreambuf_iterator<char>());
+    std::cout << fileContent;
+
+    SQLiteDb dbHandler("database.db");
+
+    dbHandler.execute(fileContent);
+
+    dbHandler.close();
+
+    sqlFile.close();
 
     std::chrono::seconds timespan(5);
     std::this_thread::sleep_for(timespan);
