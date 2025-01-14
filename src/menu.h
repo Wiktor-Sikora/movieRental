@@ -48,7 +48,7 @@ public:
 class AdminMenuOptions : public MenuOptions {
 public:
     std::vector<std::string> getOptions() const override {
-        return {"Offer", "Edit Offer", "Rental History", "Financial Balances", "Log Out"};
+        return {"Offer", "Edit Offer", "Manage Users", "Rental History", "Financial Balances", "Log Out"};
     }
 };
 
