@@ -121,6 +121,7 @@ void Offer::displayMovies() {
             break;
         } else if (key == 27) { //Esc
             break;
+        }
 #endif
     }
     PAUSE;
