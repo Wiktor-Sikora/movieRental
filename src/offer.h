@@ -7,11 +7,13 @@
 
 #include "db.h"
 #include "movies.h"
+#include "users.h"
 
 class Offer{
+    User* currentUser;
     public:
-    void displayMovies();
-    void displayMovieDetails(const Movie& movie);
+    void displayMovies(User &currentUser);
+    void displayMovieDetails(Movie& movie, User &currentUser);
 };
 
 #endif

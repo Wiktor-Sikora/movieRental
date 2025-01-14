@@ -6,6 +6,8 @@
 #include "consoleapperance.h"
 #include "offer.h"
 #include "movies.h"
+#include "users.h"
+
 
 #ifdef _WIN32
 #define CLEAR system("cls")
@@ -28,7 +30,7 @@
 #endif
 
 
-void Offer::displayMovieDetails(const Movie& movie) {
+void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
     std::vector<std::string> options = {"Rent", "Return"};
     int selectedOption = 0;
     while(true){
@@ -45,12 +47,12 @@ void Offer::displayMovieDetails(const Movie& movie) {
             if (i == selectedOption) {
                 ConsoleAppearance::SetColor(0, 7);
                 std::cout << " " << options[i] << " " << std::endl;
+                ConsoleAppearance::SetColor(7, 0);
             } else {
                 ConsoleAppearance::SetColor(7, 0);
                 std::cout << " " << options[i] << std::endl;
             }
         }
-        ConsoleAppearance::SetColor(7, 0);
 
 #ifdef _WIN32
         int key = GETCH;
@@ -65,13 +67,14 @@ void Offer::displayMovieDetails(const Movie& movie) {
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
                 if (movie.stock > 0) {
+                    movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
                 } else {
-                    std::cout << "Out of stock!" << std::endl;
+                    std::cout << "Out of stock!" <<  std::endl;
                 }
                 break;
             } else if (options[selectedOption] == "Return") {
-                break;
+                displayMovies(currentUser);
             }
         } else if (key == 27) {
             break;
@@ -137,7 +140,7 @@ void Offer::displayMovieDetails(const Movie& movie) {
 
 
 
-void Offer::displayMovies() {
+void Offer::displayMovies(User &currentUser) {
     SYSTEM;
     CLEAR;
     std::string movieTitle;
@@ -151,7 +154,7 @@ void Offer::displayMovies() {
         std::cout << "\nNo movies found with the title" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
         PAUSE;
-        displayMovies();
+        displayMovies(currentUser);
     }
 
     int selectedIndex = 0;
@@ -179,7 +182,7 @@ void Offer::displayMovies() {
                 selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
         } else if (key == 13) {
-            displayMovieDetails(movies.querySet[selectedIndex]);
+            displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
         } else if (key == 27) { //Esc
             break;
@@ -223,6 +226,3 @@ void Offer::displayMovies() {
     }
     PAUSE;
 }
-
-
-

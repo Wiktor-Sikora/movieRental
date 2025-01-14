@@ -26,6 +26,7 @@ public:
     options = {"Offer", "Sign Up", "Sign In", "Exit"}; 
     }
 
+
     void deafult();
     void updateMenuOptions();
     void signUp();
@@ -34,7 +35,7 @@ public:
     void signIn();
     void greetingUser();
     void displayMovie();
-    void movieMenu();
+    void movieMenu(User &currentUser);
     void navigation();
 };
 

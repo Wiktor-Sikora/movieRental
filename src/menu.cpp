@@ -210,12 +210,8 @@ void search(){
     MoviesQuerySet movies(phrase);
 }
 
-void distplayList(){
-
-}
-
-void Menu::movieMenu() {
-    movieOffer.displayMovies();
+void Menu::movieMenu(User &currentUser) {
+    movieOffer.displayMovies(currentUser);
 }
 
 #ifdef _WIN32
@@ -242,7 +238,7 @@ void Menu::navigation() {
                     break;
                 }
                 else if(options[selectedOption] == "Offer"){
-                    movieMenu();
+                    movieMenu(*currentUser);
                 }else if(options[selectedOption] == "Sign Up"){
                     signUp();
                 }else if(options[selectedOption] == "Sign In"){

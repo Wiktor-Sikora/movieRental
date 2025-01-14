@@ -76,7 +76,7 @@ bool Movie::rentMovie(int userId) {
         DateTime(std::time(0))
     ));
 
-    this->stock - 1;
+    this->stock -= 1;
     this->saveToDb();
     
     DbHandler.close();
