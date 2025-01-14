@@ -69,21 +69,23 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                 if (movie.stock > 0 && &currentUser != 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
+                    break;
                 } else if(movie.stock == 0) {
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }else{
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "\nYou must be logged in to do that" << std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }
-                break;
             } else if (options[selectedOption] == "Return") {
                 displayMovies(currentUser);
             }
         } else if (key == 27) {
-            break;
+            return;
         }
 #elif _WIN64
         int key = GETCH;
@@ -114,7 +116,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                 break;
             }
         } else if (key == 27) {
-            break;
+            return;
         }
 #else
         initscr();
@@ -150,7 +152,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                     break;
                 }
             } else if (key == 27) {
-                break;
+                return;
             }
 #endif
     }
@@ -199,7 +201,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
         } else if (key == 27) { //Esc
-            return;
+            break;
         }
 #elif _WIN64
     int key = GETCH;
@@ -214,7 +216,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
-            return;
+            break;
         }
 #else
         initscr();
@@ -234,7 +236,7 @@ void Offer::displayMovies(User &currentUser) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { 
-            return;
+            break;
         }
 #endif
     }
