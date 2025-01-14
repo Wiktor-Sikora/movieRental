@@ -62,6 +62,37 @@ void Movie::deleteMovie() const {
     DbHandler.close();
 }
 
+void Movie::rentMovie(int userId) const {
+    SQLiteDb DbHandler("database.db");
+
+    if (userId == -1) {
+        return;
+    }
+
+    DbHandler.execute(
+        std::format("INSERT INTO rental (movie_id, user_id, date) VALUES({}, {}, '{}');",
+        this->id,
+        userId,
+        DateTime(std::time(0))
+    ));
+
+    DbHandler.close();
+}
+
+void Movie::unRentMovie(int userId) const {
+    SQLiteDb DbHandler("database.db");
+
+    if (userId == -1) {
+        return;
+    }
+
+    DbHandler.execute(
+        std::format("DELETE FROM rental WHERE movie_id={} and user_id={};",
+        this->id,
+        userId
+    ));
+};
+
 
 /**
  * Fills the class with Movie objects
