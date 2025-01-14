@@ -317,7 +317,7 @@ void Menu::navigation() {
                 std::cout << "Thank you for visiting! Goodbye\n";
                 break;
             }else if(options[selectedOption] == "Offer"){
-                    movieMenu();
+                    movieMenu(*currentUser);
             }else if (options[selectedOption] == "Sign Up") {
                 signUp();
             } else if (options[selectedOption] == "Sign In") {
