@@ -102,7 +102,7 @@ bool Movie::unRentMovie(int userId) {
     this->saveToDb();
 
     DbHandler.close();
-    return true
+    return true;
 };
 
 
