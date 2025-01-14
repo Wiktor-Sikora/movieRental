@@ -12,10 +12,6 @@
 class ConsoleAppearance {
 public:
     
-    enum Color{
-        BLACK = 0, RED = 4, WHITE = 7
-    };
-
     static void SetColor(int textColor, int bgColor) {
 #ifdef _WIN32
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -24,7 +20,7 @@ public:
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
         SetConsoleTextAttribute(hConsole, (bgColor << 4) | textColor);
 #else
-        std::cout << "\033[" << (30 + textColor) << ";" << (40 + bgColor) << "m";
+        std::cout << "\033[" << (37 + textColor) << ";" << (40 + bgColor) << "m";
 #endif
     }
     
