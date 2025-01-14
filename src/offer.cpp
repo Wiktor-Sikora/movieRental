@@ -11,21 +11,25 @@
 #define CLEAR system("cls")
 #define GETCH _getch()
 #define PAUSE system("pause")
+#define SYSTEM system("chcp 65001 > nul");
 #include <conio.h>
 #elif _WIN64
 #define CLEAR system("cls")
 #define GETCH _getch()
 #define PAUSE system("pause")
+#define SYSTEM system("chcp 65001 > nul");
 #include <conio.h>
 #else
 #define CLEAR std::system("clear")
 #define GETCH getch()
 #define PAUSE std::cin.get();
+#define SYSTEM 0;
 #include <ncurses.h>
 #endif
 
 
 void Offer::displayMovieDetails(const Movie& movie) {
+    SYSTEM;
     CLEAR;
     std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
     std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
@@ -37,6 +41,7 @@ void Offer::displayMovieDetails(const Movie& movie) {
 }
 
 void Offer::displayMovies() {
+    SYSTEM;
     CLEAR;
     std::string movieTitle;
     std::cout << "Enter the movie title to search: ";

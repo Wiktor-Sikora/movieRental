@@ -320,7 +320,9 @@ void Menu::navigation() {
             if (options[selectedOption] == "Exit") {
                 std::cout << "Thank you for visiting! Goodbye\n";
                 break;
-            } else if (options[selectedOption] == "Sign Up") {
+            }else if(options[selectedOption] == "Offer"){
+                    movieMenu();
+            }else if (options[selectedOption] == "Sign Up") {
                 signUp();
             } else if (options[selectedOption] == "Sign In") {
                 signIn();
