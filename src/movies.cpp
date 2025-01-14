@@ -62,11 +62,11 @@ void Movie::deleteMovie() const {
     DbHandler.close();
 }
 
-void Movie::rentMovie(int userId) const {
+bool Movie::rentMovie(int userId) {
     SQLiteDb DbHandler("database.db");
 
-    if (userId == -1) {
-        return;
+    if (userId == -1 || this->stock < 1) {
+        return false;
     }
 
     DbHandler.execute(
@@ -76,14 +76,19 @@ void Movie::rentMovie(int userId) const {
         DateTime(std::time(0))
     ));
 
+    this->stock - 1;
+    this->saveToDb();
+    
     DbHandler.close();
+
+    return true;
 }
 
-void Movie::unRentMovie(int userId) const {
+bool Movie::unRentMovie(int userId) {
     SQLiteDb DbHandler("database.db");
 
     if (userId == -1) {
-        return;
+        return false;
     }
 
     DbHandler.execute(
@@ -91,6 +96,13 @@ void Movie::unRentMovie(int userId) const {
         this->id,
         userId
     ));
+
+    this->stock += 1;
+
+    this->saveToDb();
+
+    DbHandler.close();
+    return true
 };
 
 

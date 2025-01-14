@@ -27,8 +27,8 @@ class Movie {
         void deleteMovie() const;
         void saveToDb() const;
         int getId() const {return this->id;};
-        void rentMovie(int userId) const;
-        void unRentMovie(int userId) const;
+        bool rentMovie(int userId);
+        bool unRentMovie(int userId);
 };
 
 class MoviesQuerySet {
