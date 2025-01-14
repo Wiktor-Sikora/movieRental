@@ -233,7 +233,7 @@ void Offer::displayMovies(User &currentUser) {
         } else if (key == KEY_DOWN) {
             selectedIndex = (selectedIndex + 1) % movies.querySet.size();
         } else if (key == 10) { 
-            displayMovieDetails(movies.querySet[selectedIndex]);
+            displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
         } else if (key == 27) { 
             break;
