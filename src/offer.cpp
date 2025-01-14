@@ -96,7 +96,7 @@ void Offer::displayMovies() {
             } else if (key == 80) {
                 selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
-        } else if (key == 13) {
+        } else if (key == 10) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
