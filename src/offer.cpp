@@ -103,7 +103,7 @@ void Offer::displayMovies() {
             break;
         }
 #else
-    initscr();
+        initscr();
         noecho();
         cbreak();
         keypad(stdscr, TRUE);
@@ -116,10 +116,10 @@ void Offer::displayMovies() {
             selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
         } else if (key == KEY_DOWN) {
             selectedIndex = (selectedIndex + 1) % movies.querySet.size();
-        }else if (key == 10) {
+        } else if (key == '\n' || key == KEY_ENTER) { 
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
-        } else if (key == 27) { //Esc
+        } else if (key == 27) { 
             break;
         }
 #endif
