@@ -38,7 +38,6 @@ void initilizeDbOnFirstRun() {
 
     std::ifstream sqlFile("src/db/scheme.sql");
     fileContent = std::string(std::istreambuf_iterator<char>(sqlFile), std::istreambuf_iterator<char>());
-    std::cout << fileContent;
 
     SQLiteDb dbHandler("database.db");
 
