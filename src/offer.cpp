@@ -96,7 +96,7 @@ void Offer::displayMovies() {
             } else if (key == 80) {
                 selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
-        } else if (key == 10) {
+        } else if (key == 13) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
@@ -116,7 +116,7 @@ void Offer::displayMovies() {
             selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
         } else if (key == KEY_DOWN) {
             selectedIndex = (selectedIndex + 1) % movies.querySet.size();
-        }else if (key == 13) {
+        }else if (key == 10) {
             displayMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
