@@ -64,6 +64,32 @@ bool User::authenticateUser(std::string password) {
     };
 }
 
+void User::blockUser() {
+    SQLiteDb dbHandler("database.db");
+    std::string sql = std::format(
+        "UPDATE users SET is_blocked={} WHERE login='{}'",
+        (this->isBlocked? 1 : 0),
+        this->login
+    );
+
+    dbHandler.execute(sql);
+
+    dbHandler.close();
+}
+
+void User::unBlockUser() {
+    SQLiteDb dbHandler("database.db");
+    std::string sql = std::format(
+        "UPDATE users SET is_blocked={} WHERE login='{}'",
+        (this->isBlocked? 0 : 1),
+        this->login
+    );
+
+    dbHandler.execute(sql);
+
+    dbHandler.close();
+}
+
 bool userExists(std::string login) {
     SQLiteDb dbHandler("database.db");
     std::string sql = std::format("SELECT login FROM users WHERE login='{}'", login);

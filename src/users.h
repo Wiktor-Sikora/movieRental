@@ -14,6 +14,7 @@ class User {
         std::string login;
         bool isAdmin = false;
         bool isAuthenticated = false;
+        bool isBlocked = false;
 
         User(std::string login, bool isAdmin=false, bool isAuthenticated=false, int id=-1): 
             login(login), isAdmin(isAdmin), isAuthenticated(isAuthenticated), id(id) {};
@@ -23,6 +24,8 @@ class User {
         void deleteUser() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);
+        void blockUser();
+        void unBlockUser();
 };
  
 bool userExists(std::string login);
