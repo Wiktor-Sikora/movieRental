@@ -52,43 +52,18 @@ void User::deleteUser() const {
 bool User::authenticateUser(std::string password) {
     SQLiteDb DbHandler("database.db");
 
-    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin FROM users WHERE login='{}' AND password='{}';", this->login, password));
-    if (rows.size() > 0) {
-        this->id = stoi(rows.at(0).at(0));
-        this->isAdmin = stoi(rows.at(0).at(1));
-        this->isAuthenticated = true;
-        DbHandler.close();
-        return true;
-    } else {
-        DbHandler.close();
+    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin, is_blocked FROM users WHERE login='{}' AND password='{}';", this->login, password));
+    DbHandler.close();
+
+    if (rows.size() == 0 || stoi(rows.at(0).at(2)) == 1) {
         return false;
-    };
-}
-
-void User::blockUser() {
-    SQLiteDb dbHandler("database.db");
-    std::string sql = std::format(
-        "UPDATE users SET is_blocked={} WHERE login='{}'",
-        (this->isBlocked? 1 : 0),
-        this->login
-    );
-
-    dbHandler.execute(sql);
-
-    dbHandler.close();
-}
-
-void User::unBlockUser() {
-    SQLiteDb dbHandler("database.db");
-    std::string sql = std::format(
-        "UPDATE users SET is_blocked={} WHERE login='{}'",
-        (this->isBlocked? 0 : 1),
-        this->login
-    );
-
-    dbHandler.execute(sql);
-
-    dbHandler.close();
+    }
+    
+    this->id = stoi(rows.at(0).at(0));
+    this->isAdmin = stoi(rows.at(0).at(1));
+    this->isAuthenticated = true;
+    
+    return true;
 }
 
 bool userExists(std::string login) {
