@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
-
+#include <format>
 
 #include "menu.h"
 #include "consoleapperance.h"
 #include "offer.h"
 #include "movies.h"
 #include "users.h"
+
 
 
 #ifdef _WIN32
@@ -241,4 +242,40 @@ void Offer::displayMovies(User &currentUser) {
 #endif
     }
     PAUSE;
+}
+
+
+
+
+void Offer::addMovie(User &currentUser) {
+    std::string name, description;
+    int released=-1, stock=-1, currYear;
+    float price=-1;
+
+    std::cout << "Enter the movie name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Enter the movie description: ";
+    std::getline(std::cin, description);
+
+    while(released<1888 || released > 2025){
+        std::cout << "Enter the movie release year: ";
+        std::cin >> released;
+    }
+
+    while (price<0){
+        std::cout << "Enter the movie price: ";
+        std::cin >> price;
+    }
+    
+    while(stock<0){
+        std::cout << "Enter the movie stock quantity: ";
+        std::cin >> stock;
+    }
+
+
+    Movie newMovie(name, description, released, price, stock, -1);
+    newMovie.saveToDb();
+
+    std::cout << "Movie added successfully!" << std::endl;
 }

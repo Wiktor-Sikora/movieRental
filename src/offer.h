@@ -14,6 +14,8 @@ class Offer{
     public:
     void displayMovies(User &currentUser);
     void displayMovieDetails(Movie& movie, User &currentUser);
+
+    void addMovie(User &currentUser);
 };
 
 #endif

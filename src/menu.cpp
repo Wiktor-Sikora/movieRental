@@ -214,6 +214,20 @@ void Menu::movieMenu(User &currentUser) {
     movieOffer.displayMovies(currentUser);
 }
 
+void Menu::add(User &currentUser) {
+    Offer offer;
+    offer.addMovie(currentUser);
+}
+
+void Menu::editOffer(){
+    CLEAR;
+    EditOfferMenuOptions opt;
+    options = opt.getOptions();
+    numOptions = options.size();
+    std::cout << "Test" << std::endl;
+
+}
+
 #ifdef _WIN32
 void Menu::navigation() {
         while (true) {
@@ -239,10 +253,17 @@ void Menu::navigation() {
                 }
                 else if(options[selectedOption] == "Offer"){
                     movieMenu(*currentUser);
+                }else if(options[selectedOption] == "Edit Offer"){
+                    editOffer();
+                }else if(options[selectedOption] == "Add Movie"){
+                    add(*currentUser);
                 }else if(options[selectedOption] == "Sign Up"){
                     signUp();
                 }else if(options[selectedOption] == "Sign In"){
                     signIn();
+                }else if(options[selectedOption] == "Return"){
+                    updateMenuOptions();
+                    return;
                 }else if(options[selectedOption] == "Log Out"){
                     delete currentUser;
                     currentUser = nullptr;

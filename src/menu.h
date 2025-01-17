@@ -36,6 +36,8 @@ public:
     void greetingUser();
     void displayMovie();
     void movieMenu(User &currentUser);
+    void add(User &currentUser);
+    void editOffer();
     void navigation();
 };
 
@@ -63,6 +65,13 @@ class GuestMenuOptions : public MenuOptions {
 public:
     std::vector<std::string> getOptions() const override {
         return {"Offer", "Sign Up", "Sign In", "Exit"};
+    }
+};
+
+class EditOfferMenuOptions : public MenuOptions {
+public:
+    std::vector<std::string> getOptions() const override {
+        return {"Add Movie", "Edit Movie", "Delete Movie", "Return"};
     }
 };
 
