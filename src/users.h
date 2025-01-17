@@ -24,8 +24,6 @@ class User {
         void deleteUser() const;
         int getId() const {return this->id;};
         bool authenticateUser(std::string password);
-        void blockUser();
-        void unBlockUser();
 };
  
 bool userExists(std::string login);

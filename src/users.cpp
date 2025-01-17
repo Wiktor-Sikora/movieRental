@@ -14,9 +14,10 @@ void User::saveToDb(std::string password) {
 
     if (this->id != -1) {
         std::string sql = std::format(
-            "UPDATE users SET login='{}', is_admin={} WHERE id={};",
+            "UPDATE users SET login='{}', is_admin={}, is_blocked={} WHERE id={};",
             this->login,
             (this->isAdmin ? 1 : 0),
+            (this->isBlocked ? 1 : 0),
             this->id
         );
         DbHandler.execute(sql);

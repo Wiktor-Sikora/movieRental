@@ -18,4 +18,19 @@ class SQLiteDb {
         std::vector<std::vector<std::string>> query(const std::string& sql);
 };
 
+class BaseModel {
+    protected:
+        int id;
+        std::string modelName;
+
+    public:
+        BaseModel(int id=-1): id(id) {};
+        ~BaseModel() {};
+
+        virtual void saveToDb() const;
+        virtual void deleteFromDb() const;
+
+        
+};
+
 #endif
