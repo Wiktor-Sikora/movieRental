@@ -173,7 +173,7 @@ void Menu::signIn(){
         PAUSE;
         this->signIn();
         return;
-    } 
+    }
 
     std::cout << "Password: ";
     std::getline (std::cin, password);
@@ -224,8 +224,6 @@ void Menu::editOffer(){
     EditOfferMenuOptions opt;
     options = opt.getOptions();
     numOptions = options.size();
-    std::cout << "Test" << std::endl;
-
 }
 
 #ifdef _WIN32

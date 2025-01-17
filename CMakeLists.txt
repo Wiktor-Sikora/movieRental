@@ -29,7 +29,7 @@ add_executable(movieRentalApp
     src/movies.cpp src/movies.h
     src/sqlite3.c src/sqlite3.h
     src/menu.cpp src/menu.h
-    src/banners.h
+    src/banners.h src/banners.cpp
     src/consoleapperance.h
     src/users.cpp src/users.h
     src/offer.cpp src/offer.h

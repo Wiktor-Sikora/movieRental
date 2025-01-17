@@ -7,6 +7,7 @@
 #include "offer.h"
 #include "movies.h"
 #include "users.h"
+#include "banners.h"
 
 
 
@@ -248,6 +249,9 @@ void Offer::displayMovies(User &currentUser) {
 
 
 void Offer::addMovie(User &currentUser) {
+    CLEAR;
+    displayAddMovieBanner();
+    
     std::string name, description;
     int released=-1, stock=-1, currYear;
     float price=-1;

@@ -71,7 +71,7 @@ public:
 class EditOfferMenuOptions : public MenuOptions {
 public:
     std::vector<std::string> getOptions() const override {
-        return {"Add Movie", "Edit Movie", "Delete Movie", "Return"};
+        return {"Add Movie", "Delete Movie", "Return"};
     }
 };
 
