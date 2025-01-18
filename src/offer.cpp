@@ -425,9 +425,9 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
         endwin();
 
         if (key == KEY_UP) {
-            selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
+            selectedOption = (selectedOption - 1 + options.size()) % options.size();
         } else if (key == KEY_DOWN) {
-            selectedIndex = (selectedIndex + 1) % movies.querySet.size();
+            selectedOption = (selectedOption + 1) % options.size();
         } else if (key == 10) { 
             if (options[selectedOption] == "Delete") {
                 movie.deleteFromDb();
