@@ -28,7 +28,7 @@ void User::saveToDb(std::string password) const {
         );
         if (password != "") {
             sql.insert(34, ", password");
-            sql.insert(64, std::format(", '{}'", password));
+            sql.insert(58 + this->login.length(), std::format(", '{}'", password));
         };
 
         DbHandler.execute(sql);
