@@ -7,6 +7,7 @@
 #include "banners.h"
 #include "users.h"
 #include "offer.h"
+#include "finance.h"
 
 #ifdef _WIN32
 #define CLEAR system("cls")
@@ -282,9 +283,19 @@ void Menu::manageUsersMenu(){
 }
 
 void Menu::blockUser(){
+    std::string username;
+    std::cout << "Enter the login of the user you want to block:";
+    std::getline (std::cin, username);
+    mUser = new User(username);
+    if(!isBlocked(username)){
+        mUser->isBlocked = true;
+    }
 
 }
 
+void Menu::finances(){
+    getProfit();
+}
 
 #ifdef _WIN32
 void Menu::navigation() {
@@ -403,6 +414,8 @@ void Menu::executeOption(){
             movieOffer.displayMovies(*currentUser);
         }else if(options[selectedOption] == "Manage Users"){
             manageUsersMenu();
+        }else if(options[selectedOption] == "Financial Balances"){
+            finances();
         }else if(options[selectedOption] == "Sign Up"){
             signUp();
         }else if(options[selectedOption] == "Sign In"){

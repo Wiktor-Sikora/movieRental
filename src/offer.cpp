@@ -393,7 +393,52 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
         } else if (key == 27) {
             return;
         }
+#elif _WIN64
+        int key = GETCH;
+
+        if (key == 224) { 
+            key = GETCH;
+            if (key == 72) {
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+            } else if (key == 80) {
+                selectedOption = (selectedOption + 1) % options.size();
+            }
+        } else if (key == 13) {
+            if (options[selectedOption] == "Delete") {
+                movie.deleteFromDb();
+                std::cout << "Movie deleted successfully!" << std::endl;
+                return;
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
+        } else if (key == 27) {
+            return;
+        }
+#else
+        initscr();
+        noecho();
+        cbreak();
+        keypad(stdscr, TRUE);
+
+        int key = GETCH;
+
+        endwin();
+
+        if (key == KEY_UP) {
+            selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
+        } else if (key == KEY_DOWN) {
+            selectedIndex = (selectedIndex + 1) % movies.querySet.size();
+        } else if (key == 10) { 
+            if (options[selectedOption] == "Delete") {
+                movie.deleteFromDb();
+                std::cout << "Movie deleted successfully!" << std::endl;
+                return;
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
+        } else if (key == 27) {
+            return;
         }
 #endif
-
+        }
 }

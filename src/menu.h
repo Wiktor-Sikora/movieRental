@@ -15,6 +15,7 @@ class Menu
 private:
     std::vector<std::string> options;
     User* currentUser;
+    User* mUser;
     int numOptions;
     int selectedOption;
     MenuOptions* menuOptions;
@@ -25,7 +26,7 @@ private:
 
 public:
 
-    Menu(const std::string optionsArray[], int numberOfOptions): currentUser(nullptr), numOptions(0), selectedOption(0), menuOptions(nullptr) {
+    Menu(const std::string optionsArray[], int numberOfOptions): currentUser(nullptr), mUser(nullptr), numOptions(0), selectedOption(0), menuOptions(nullptr) {
     options = {"Offer", "Sign Up", "Sign In", "Exit"}; 
     }
 
@@ -46,6 +47,7 @@ public:
     void manageUsersMenu();
     void blockUser();
     void unblockUser();
+    void finances();
 };
 
 class MenuOptions {
@@ -88,7 +90,5 @@ public:
         return {"Block User", "Unblock User", "Return"};
     }
 };
-
-
 
 #endif
