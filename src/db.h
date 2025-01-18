@@ -24,13 +24,14 @@ class BaseModel {
         std::string modelName;
 
     public:
-        BaseModel(int id=-1): id(id) {};
+        BaseModel(std::string modelName, int id=-1): modelName(modelName), id(id) {};
         ~BaseModel() {};
 
-        virtual void saveToDb() const;
-        virtual void deleteFromDb() const;
+        virtual void saveToDb() const {};
+        virtual void deleteFromDb() const {};
+        int getId() const {return this->id;};
 
-        
+        friend std::ostream& operator<<(std::ostream& out, const BaseModel& model);
 };
 
 #endif

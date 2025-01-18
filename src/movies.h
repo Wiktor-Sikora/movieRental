@@ -10,10 +10,7 @@
 #include "users.h"
 #include "utils.h"
 
-class Movie {
-    private:
-        int id;
-
+class Movie: public BaseModel {
     public:
         std::string name;
         std::string description; 
@@ -21,14 +18,16 @@ class Movie {
         float price;
         int stock;
 
-        Movie(const std::string& name, const std::string& description, int released, float price=10.00, int stock=10, int id=-1);
+        Movie(const std::string& name, const std::string& description, int released, float price=10.00, int stock=10, int id=-1): BaseModel("Movie", id),
+        name(name), description(description), released(released), price(price), stock(stock) {};
         ~Movie();
 
-        void deleteMovie() const;
-        void saveToDb() const;
-        int getId() const {return this->id;};
+        void saveToDb() const override;
+        void deleteFromDb() const override;
         bool rentMovie(int userId);
         bool unRentMovie(int userId);
+
+        friend std::ostream& operator<<(std::ostream& out, const Movie& movie);
 };
 
 class MoviesQuerySet {
@@ -42,7 +41,7 @@ class MoviesQuerySet {
         MoviesQuerySet(const std::string& searchPhrase, int userId = -1);
         ~MoviesQuerySet();
 
-        friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies);      
+        friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies);
 };
 
 #endif

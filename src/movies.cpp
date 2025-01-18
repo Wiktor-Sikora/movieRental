@@ -7,14 +7,6 @@
 #include "movies.h"
 #include "users.h"
 
-Movie::Movie(
-    const std::string& name, const std::string& description, 
-    int released, float price, 
-    int stock, int id
-) : name(name), description(description),
-    released(released), price(price),
-    stock(stock), id(id)
-{}
 
 Movie::~Movie() {}
 
@@ -52,7 +44,7 @@ void Movie::saveToDb() const {
     DbHandler.close();
 }
 
-void Movie::deleteMovie() const {
+void Movie::deleteFromDb() const {
     SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
@@ -137,15 +129,19 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     DbHandler.close();
 }
 
+std::ostream& operator<<(std::ostream& out, const Movie& movie) {
+    return out << std::format("{}({})", movie.modelName, movie.name);
+}
+
 MoviesQuerySet::~MoviesQuerySet() {}
 
 std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
     out << "[";
     if (movies.querySet.size() > 0) {
         for (int i = 0; i < movies.querySet.size() - 1; i++) {
-            out << "Movie(" << movies.querySet.at(i).name << "), ";
+            out << movies.querySet.at(i) << ", ";
         }
-        out << "Movie(" << movies.querySet.at(movies.querySet.size() - 1).name <<  ")";
+        out << movies.querySet.at(movies.querySet.size() - 1);
     }
     out << "]";
     return out;

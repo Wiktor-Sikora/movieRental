@@ -9,7 +9,7 @@
 
 User::~User() {}
 
-void User::saveToDb(std::string password) {
+void User::saveToDb(std::string password) const {
     SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
@@ -28,7 +28,7 @@ void User::saveToDb(std::string password) {
         );
         if (password != "") {
             sql.insert(34, ", password");
-            sql.insert(65, std::format(", '{}'", password));
+            sql.insert(64, std::format(", '{}'", password));
         };
 
         DbHandler.execute(sql);
@@ -39,7 +39,7 @@ void User::saveToDb(std::string password) {
     DbHandler.close();
 }
 
-void User::deleteUser() const {
+void User::deleteFromDb() const {
     SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
@@ -66,6 +66,10 @@ bool User::authenticateUser(std::string password) {
     return true;
 }
 
+std::ostream& operator<<(std::ostream& out, const User& user) {
+    return out << std::format("{}({})", user.modelName, user.login);
+}
+
 bool userExists(std::string login) {
     SQLiteDb dbHandler("database.db");
     std::string sql = std::format("SELECT login FROM users WHERE login='{}'", login);
@@ -86,3 +90,4 @@ bool isBlocked(std::string login) {
     }
     return false;
 }
+
