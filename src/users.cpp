@@ -52,10 +52,10 @@ void User::deleteUser() const {
 bool User::authenticateUser(std::string password) {
     SQLiteDb DbHandler("database.db");
 
-    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin, is_blocked FROM users WHERE login='{}' AND password='{}';", this->login, password));
+    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin FROM users WHERE login='{}' AND password='{}';", this->login, password));
     DbHandler.close();
 
-    if (rows.size() == 0 || stoi(rows.at(0).at(2)) == 1) {
+    if (rows.size() == 0) {
         return false;
     }
     
@@ -74,4 +74,15 @@ bool userExists(std::string login) {
     dbHandler.close();
 
     return !result.empty();
+}
+
+bool isBlocked(std::string login) {
+    SQLiteDb DbHandler("database.db");
+    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT is_blocked FROM users WHERE login='{}';", login));
+    DbHandler.close();
+    
+    if (rows.size() == 0 || stoi(rows.at(0).at(0)) == 1) {
+        return true;
+    }
+    return false;
 }

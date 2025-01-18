@@ -175,6 +175,15 @@ void Menu::signIn(){
         return;
     }
 
+    if(isBlocked(login)){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n"<< "This user account is blocked" << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        this->signIn();
+        return;
+    }
+
     std::cout << "Password: ";
     std::getline (std::cin, password);
 

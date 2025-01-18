@@ -27,5 +27,6 @@ class User {
 };
  
 bool userExists(std::string login);
+bool isBlocked(std::string login);
 
 #endif
