@@ -38,6 +38,7 @@ public:
     void displayMovie();
     void movieMenu(User &currentUser);
     void add();
+    void mDelete(Movie& movie, User &currentUser);
     void editOffer();
     void navigation();
     void executeOption();
