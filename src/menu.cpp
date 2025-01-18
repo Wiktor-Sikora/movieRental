@@ -294,7 +294,11 @@ void Menu::blockUser(){
 }
 
 void Menu::finances(){
-    getProfit();
+    CLEAR;
+    std::cout << "Profit\t" << getProfit() << "$\n";
+    std::cout << "Expenses\t" << getExpenses() << "$\n";
+    std::cout << "Balance\t" << getBalance() << "$\n";
+    PAUSE;
 }
 
 #ifdef _WIN32
