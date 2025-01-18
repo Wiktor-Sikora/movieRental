@@ -70,7 +70,13 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
+                if(&currentUser == nullptr){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    break;
+                }
+                if (movie.stock > 0 && currentUser.isAuthenticated && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
                     break;
@@ -79,19 +85,14 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else if(currentUser.isAdmin == 1){
+                }else if(currentUser.isAdmin){
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Only a regular user can rent a movie." <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else{
-                    ConsoleAppearance::SetColor(4, 0);
-                    std::cout << "\nYou must be logged in to do that" << std::endl;
-                    ConsoleAppearance::SetColor(7, 0);
-                    PAUSE;
                 }
             } else if (options[selectedOption] == "Return") {
-                return;
+                break;
             }
         } else if (key == 27) {
             return;
@@ -108,7 +109,13 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
+                if(&currentUser == nullptr){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    break;
+                }
+                if (movie.stock > 0 && currentUser.isAuthenticated && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
                     break;
@@ -117,19 +124,14 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else if(currentUser.isAdmin == 1){
+                }else if(currentUser.isAdmin){
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Only a regular user can rent a movie." <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else{
-                    ConsoleAppearance::SetColor(4, 0);
-                    std::cout << "\nYou must be logged in to do that" << std::endl;
-                    ConsoleAppearance::SetColor(7, 0);
-                    PAUSE;
                 }
             } else if (options[selectedOption] == "Return") {
-                return;
+                break;
             }
         } else if (key == 27) {
             return;
@@ -151,7 +153,13 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
              else if (key == 10) {
                 if (options[selectedOption] == "Rent") {
-                    if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
+                    if(&currentUser == nullptr){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You must be logged in to do that" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    break;
+                }
+                if (movie.stock > 0 && currentUser.isAuthenticated && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
                     break;
@@ -160,20 +168,15 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else if(currentUser.isAdmin == 1){
+                }else if(currentUser.isAdmin){
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Only a regular user can rent a movie." <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
-                }else{
-                    ConsoleAppearance::SetColor(4, 0);
-                    std::cout << "\nYou must be logged in to do that" << std::endl;
-                    ConsoleAppearance::SetColor(7, 0);
-                    PAUSE;
                 }
-                } else if (options[selectedOption] == "Return") {
-                    return;
-                }
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
             } else if (key == 27) {
                 return;
             }

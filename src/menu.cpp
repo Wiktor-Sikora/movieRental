@@ -25,8 +25,6 @@
 #include <ncurses.h>
 #endif
 
-
-
 void Menu::deafult() {
         CLEAR;
         skipDefaultView = false;
@@ -76,6 +74,7 @@ void Menu::signUp(){
      std::cout << "Login: ";
      std::getline (std::cin, login);
      loginChecker(login);
+     if(login.empty()){return;}
      std::cout << "Password: ";
      std::getline (std::cin, password); 
      std::cout << "Confirm password: ";
@@ -93,8 +92,9 @@ void Menu::loginChecker(std::string login){
         ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n" << "Your login CANNOT be empty" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
-        PAUSE;        
-        signUp();
+        PAUSE;
+        deafult();
+        return;
     }
     for (char c : login) {
         if (!isalnum(c)) {
@@ -168,6 +168,15 @@ void Menu::signIn(){
     std::cout << "Login: ";
     std::getline (std::cin, login);
 
+    if(login.empty()){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "Your login CANNOT be empty" << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        deafult();
+        return;
+        }
+
     if (!userExists(login)){
         ConsoleAppearance::SetColor(4, 0);
         std::cout << "\n"<< "User with this login doesn't exist" << std::endl;
@@ -214,12 +223,12 @@ void Menu::greetingUser(){
     std::cout << greetings <<  std::endl;
 }
 
-void search(){
-    std::string phrase;
-    std::cout << "Type a name of the movie you want to rent:" << std::endl;
-    std::getline (std::cin, phrase);
-    MoviesQuerySet movies(phrase);
-}
+// void search(){
+//     std::string phrase;
+//     std::cout << "Type a name of the movie you want to rent:" << std::endl;
+//     std::getline (std::cin, phrase);
+//     MoviesQuerySet movies(phrase);
+// }
 
 void Menu::movieMenu(User &currentUser) {
     movieOffer.displayMovies(currentUser);

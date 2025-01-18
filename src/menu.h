@@ -28,7 +28,6 @@ public:
     options = {"Offer", "Sign Up", "Sign In", "Exit"}; 
     }
 
-
     void deafult();
     void updateMenuOptions();
     void signUp();
@@ -77,5 +76,7 @@ public:
         return {"Add Movie", "Delete Movie", "Return"};
     }
 };
+
+
 
 #endif
