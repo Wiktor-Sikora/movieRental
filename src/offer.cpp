@@ -355,10 +355,9 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
     while(true){
         SYSTEM;
         CLEAR;
-        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
-        std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
-        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+        displayDeleteMovieBanner();
 
+        std::cout << "Title: " << movie.name << std::endl;
         std::cout << "Release date: " << movie.released << "\n\n";
         std::cout << "Description\n" << movie.description << "\n\n";
         std::cout << "$" << movie.price << " | " << movie.stock << " in stock\n" << std::endl;
