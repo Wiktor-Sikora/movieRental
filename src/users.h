@@ -18,7 +18,7 @@ class User: public BaseModel {
             login(login), isAdmin(isAdmin), isAuthenticated(isAuthenticated) {};
         ~User();
 
-        void saveToDb(std::string password) const;
+        void saveToDb(std::string password);
         void deleteFromDb() const override;
         bool authenticateUser(std::string password);
 

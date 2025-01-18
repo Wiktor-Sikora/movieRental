@@ -5,12 +5,13 @@
 
 #include "db.h"
 #include "movies.h"
+#include "finance.h"
 #include "users.h"
 
 
 Movie::~Movie() {}
 
-void Movie::saveToDb() const {
+void Movie::saveToDb() {
     SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {
@@ -37,6 +38,9 @@ void Movie::saveToDb() const {
             this->price,
             this->stock
         ));
+
+        Finance finance(this->price * -1);
+        finance.saveToDb();
         // TODO: update id after insert with
         // sqlite3_last_insert_rowid() or some shit like that
     }
@@ -70,8 +74,12 @@ bool Movie::rentMovie(int userId) {
 
     this->stock -= 1;
     this->saveToDb();
+
     
     DbHandler.close();
+
+    Finance finance(this->price, userId);
+    finance.saveToDb();
 
     return true;
 }
@@ -107,7 +115,6 @@ bool Movie::unRentMovie(int userId) {
 MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     SQLiteDb DbHandler("database.db");
     std::vector<std::vector<std::string>> rows;
-
     std::string sql;
 
     if (userId == - 1) {

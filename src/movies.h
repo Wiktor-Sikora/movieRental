@@ -22,7 +22,7 @@ class Movie: public BaseModel {
         name(name), description(description), released(released), price(price), stock(stock) {};
         ~Movie();
 
-        void saveToDb() const override;
+        void saveToDb() override;
         void deleteFromDb() const override;
         bool rentMovie(int userId);
         bool unRentMovie(int userId);
