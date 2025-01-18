@@ -295,9 +295,9 @@ void Menu::blockUser(){
 
 void Menu::finances(){
     CLEAR;
-    std::cout << "Profit\t" << getProfit() << "$\n";
-    std::cout << "Expenses\t" << getExpenses() << "$\n";
-    std::cout << "Balance\t" << getBalance() << "$\n";
+    std::cout << "Profit:\t\t" << getProfit() << "$\n";
+    std::cout << "Expenses:\t" << getExpenses() << "$\n";
+    std::cout << "Balance:\t" << getBalance() << "$\n";
     PAUSE;
 }
 

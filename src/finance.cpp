@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <format>
+#include <vector>
 
 #include "db.h"
 #include "users.h"
@@ -60,7 +61,7 @@ double getProfit() {
 
     DbHandler.close();
 
-    return std::stod(rows.at(0).at(0));
+    return (rows.at(0).at(0) != "") ? std::stod(rows.at(0).at(0)) : 0;
 }
 
 double getExpenses() {
@@ -70,7 +71,7 @@ double getExpenses() {
 
     DbHandler.close();
 
-    return std::stod(rows.at(0).at(0));
+    return (rows.at(0).at(0) != "") ? std::stod(rows.at(0).at(0)) : 0;
 }
 
 double getBalance() {
@@ -80,5 +81,5 @@ double getBalance() {
 
     DbHandler.close();
 
-    return std::stod(rows.at(0).at(0));
+    return (rows.at(0).at(0) != "") ? std::stod(rows.at(0).at(0)) : 0;
 }
