@@ -15,7 +15,7 @@ class Offer{
     void displayMovies(User &currentUser);
     void displayMovieDetails(Movie& movie, User &currentUser);
 
-    void addMovie(User &currentUser);
+    void addMovie();
 };
 
 #endif

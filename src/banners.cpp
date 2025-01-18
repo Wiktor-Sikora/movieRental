@@ -18,6 +18,13 @@ void displaySignInBanner(){
     std::cout << "**********************************" << std::endl;
 }
 
+
+void displayEditOfferBanner(){
+    std::cout << "##################################" << std::endl;
+    std::cout << "#           EDIT OFFER           #" << std::endl;
+    std::cout << "##################################" << std::endl;
+}
+
 void displayAddMovieBanner(){
     std::cout << "++++++++++++++++++++++++++++++++++" << std::endl;
     std::cout << "+            ADD MOVIE           +" << std::endl;

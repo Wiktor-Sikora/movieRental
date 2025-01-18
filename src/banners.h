@@ -6,6 +6,8 @@
 void displayHeader();
 void displaySignUpBanner();
 void displaySignInBanner();
+
+void displayEditOfferBanner();
 void displayAddMovieBanner();
 
 #endif
