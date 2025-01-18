@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "sqlite3.h"
+#include <format>
 #include <vector>
 
 #include "db.h"
@@ -70,5 +71,9 @@ std::vector<std::vector<std::string>> SQLiteDb::query(const std::string& sql) {
     }
 
     return result;
+}
+
+std::ostream& operator<<(std::ostream& out, const BaseModel& model) {
+    return out << std::format("{}", model.modelName);
 }
 

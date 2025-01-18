@@ -2,9 +2,6 @@
 #include <string>
 #include <ctime>
 #include <fstream>
-#include <chrono>
-#include <thread>
-
 
 #include "utils.h"
 #include "db.h"
@@ -46,7 +43,4 @@ void initilizeDbOnFirstRun() {
     dbHandler.close();
 
     sqlFile.close();
-
-    std::chrono::seconds timespan(5);
-    std::this_thread::sleep_for(timespan);
 };
