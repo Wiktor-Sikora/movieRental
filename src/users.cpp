@@ -9,7 +9,7 @@
 
 User::~User() {}
 
-void User::saveToDb(std::string password) const {
+void User::saveToDb(std::string password) {
     SQLiteDb DbHandler("database.db");
 
     if (this->id != -1) {

@@ -27,7 +27,7 @@ class BaseModel {
         BaseModel(std::string modelName, int id=-1): modelName(modelName), id(id) {};
         ~BaseModel() {};
 
-        virtual void saveToDb() const {};
+        virtual void saveToDb() {};
         virtual void deleteFromDb() const {};
         int getId() const {return this->id;};
 
