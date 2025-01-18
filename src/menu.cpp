@@ -225,9 +225,9 @@ void Menu::movieMenu(User &currentUser) {
     movieOffer.displayMovies(currentUser);
 }
 
-void Menu::add(User &currentUser) {
+void Menu::add() {
     Offer offer;
-    offer.addMovie(currentUser);
+    offer.addMovie();
 }
 
 void Menu::editOffer(){
@@ -361,7 +361,7 @@ void Menu::executeOption(){
         }else if(options[selectedOption] == "Edit Offer"){
             editOffer();
         }else if(options[selectedOption] == "Add Movie"){
-            add(*currentUser);
+            add();
         }else if(options[selectedOption] == "Sign Up"){
             signUp();
         }else if(options[selectedOption] == "Sign In"){

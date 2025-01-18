@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <format>
+#include <cctype>
 
 #include "menu.h"
 #include "consoleapperance.h"
@@ -178,7 +179,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
 #endif
     }
     }
-    
+
 void Offer::displayMovies(User &currentUser) {
     SYSTEM;
     CLEAR;
@@ -268,13 +269,13 @@ void Offer::displayMovies(User &currentUser) {
 
 
 
-void Offer::addMovie(User &currentUser) {
+void Offer::addMovie() {
     CLEAR;
     displayAddMovieBanner();
     
     std::string name, description;
-    int released=-1, stock=-1, currYear;
-    float price=-1;
+    int released, stock;
+    float price;
 
     std::cout << "Enter the movie name: ";
     std::getline(std::cin, name);
@@ -282,24 +283,57 @@ void Offer::addMovie(User &currentUser) {
     std::cout << "Enter the movie description: ";
     std::getline(std::cin, description);
 
-    while(released<1888 || released > 2025){
+      
+    while (true) {
         std::cout << "Enter the movie release year: ";
         std::cin >> released;
+
+        if (std::cin.fail() || released < 1888 || released > 2025) {
+            std::cin.clear();
+            std::cin.ignore(1024, '\n');
+            ConsoleAppearance::SetColor(4, 0);
+            std::cout << "Invalid release year. Please try again.\n";
+            ConsoleAppearance::SetColor(7, 0);
+        } else {
+            break;
+        }
     }
 
-    while (price<0){
+    while (true) {
         std::cout << "Enter the movie price: ";
         std::cin >> price;
-    }
-    
-    while(stock<0){
-        std::cout << "Enter the movie stock quantity: ";
-        std::cin >> stock;
+
+        if (std::cin.fail() || price < 0) {
+            std::cin.clear();
+            std::cin.ignore(1024, '\n');
+            ConsoleAppearance::SetColor(4, 0);
+            std::cout << "Invalid price. Please try again.\n";
+            ConsoleAppearance::SetColor(7, 0);
+        } else {
+            break;
+        }
     }
 
+    while (true) {
+        std::cout << "Enter the movie stock quantity: ";
+        std::cin >> stock;
+
+        if (std::cin.fail() || stock < 0) {
+            std::cin.clear();
+            std::cin.ignore(1024, '\n');
+            ConsoleAppearance::SetColor(4, 0);
+            std::cout << "Invalid stock. Please try again.\n";
+            ConsoleAppearance::SetColor(7, 0);
+        } else {
+            break;
+        }
+    }
+    
 
     Movie newMovie(name, description, released, price, stock, -1);
     newMovie.saveToDb();
 
     std::cout << "Movie added successfully!" << std::endl;
+    PAUSE;
+    return;
 }

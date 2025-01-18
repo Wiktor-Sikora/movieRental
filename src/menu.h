@@ -38,7 +38,7 @@ public:
     void greetingUser();
     void displayMovie();
     void movieMenu(User &currentUser);
-    void add(User &currentUser);
+    void add();
     void editOffer();
     void navigation();
     void executeOption();
