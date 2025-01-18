@@ -14,7 +14,7 @@ void Finance::saveToDb() {
     if (this->id != -1) {
         DbHandler.execute(
             std::format("UPDATE finances SET\
-                amount={}, user_id={}, date={}\
+                amount={}, user_id={}, date='{}'\
                 WHERE id={};",
             this->amount,
             this->userId,
@@ -25,9 +25,9 @@ void Finance::saveToDb() {
         date = std::time(0);
 
         DbHandler.execute(
-            std::format("INSERT INTO finance\
+            std::format("INSERT INTO finances\
                 (amount, user_id, date)\
-                VALUES({}, {}, {});", 
+                VALUES({}, {}, '{}');", 
             this->amount, 
             this->userId,
             DateTime(this->date)
