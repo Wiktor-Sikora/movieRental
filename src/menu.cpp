@@ -29,6 +29,7 @@ void Menu::deafult() {
         CLEAR;
         skipDefaultView = false;
         skipEditOfferView = true;
+        skipManageUsersView = true;
         displayHeader();
         if (currentUser != nullptr && currentUser->isAuthenticated)
         {
@@ -232,11 +233,11 @@ void Menu::add() {
     offer.addMovie();
 }
 
-
 void Menu::editOffer(){
     CLEAR;
     skipDefaultView = true;
     skipEditOfferView = false;
+    skipManageUsersView = true;
     EditOfferMenuOptions opt;
     options = opt.getOptions();
     numOptions = options.size();
@@ -256,6 +257,35 @@ void Menu::editOffer(){
     }
 }
 
+void Menu::manageUsersMenu(){
+    CLEAR;
+    skipDefaultView = true;
+    skipEditOfferView = true;
+    skipManageUsersView = false;
+    ManageUsersMenuOptions opt;
+    options = opt.getOptions();
+    numOptions = options.size();
+
+    displayManageUsersBanner();
+
+    for (int i = 0; i < numOptions; i++) {
+        ConsoleAppearance::centerText(options[i]);
+        if (i == selectedOption) {
+            ConsoleAppearance::SetColor(0, 7);
+            std::cout << " " << options[i] << " " << std::endl;
+            ConsoleAppearance::SetColor(7, 0);
+        } else {
+            ConsoleAppearance::SetColor(7, 0);
+            std::cout << " " << options[i] << " " << std::endl;
+        }
+    }
+}
+
+void Menu::blockUser(){
+
+}
+
+
 #ifdef _WIN32
 void Menu::navigation() {
         while (true) {
@@ -264,6 +294,8 @@ void Menu::navigation() {
             deafult();
             }else if (!skipEditOfferView){
                 editOffer();
+            }else if (!skipManageUsersView){
+                manageUsersMenu();
             }
             
 
@@ -360,6 +392,7 @@ void Menu::navigation() {
 
 void Menu::executeOption(){
     if(options[selectedOption] == "Offer"){
+            movieOffer.isDisplay = true;
             movieMenu(*currentUser);
         }else if(options[selectedOption] == "Edit Offer"){
             editOffer();
@@ -368,6 +401,8 @@ void Menu::executeOption(){
         }else if(options[selectedOption] == "Delete Movie"){
             movieOffer.isDisplay = false;
             movieOffer.displayMovies(*currentUser);
+        }else if(options[selectedOption] == "Manage Users"){
+            manageUsersMenu();
         }else if(options[selectedOption] == "Sign Up"){
             signUp();
         }else if(options[selectedOption] == "Sign In"){

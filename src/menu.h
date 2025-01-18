@@ -21,6 +21,7 @@ private:
     Offer movieOffer;
     bool skipDefaultView = false;
     bool skipEditOfferView = true;
+    bool skipManageUsersView = true;
 
 public:
 
@@ -42,6 +43,9 @@ public:
     void editOffer();
     void navigation();
     void executeOption();
+    void manageUsersMenu();
+    void blockUser();
+    void unblockUser();
 };
 
 class MenuOptions {
@@ -75,6 +79,13 @@ class EditOfferMenuOptions : public MenuOptions {
 public:
     std::vector<std::string> getOptions() const override {
         return {"Add Movie", "Delete Movie", "Return"};
+    }
+};
+
+class ManageUsersMenuOptions : public MenuOptions {
+public:
+    std::vector<std::string> getOptions() const override {
+        return {"Block User", "Unblock User", "Return"};
     }
 };
 

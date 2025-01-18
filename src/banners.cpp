@@ -30,3 +30,15 @@ void displayAddMovieBanner(){
     std::cout << "+            ADD MOVIE           +" << std::endl;
     std::cout << "++++++++++++++++++++++++++++++++++" << std::endl;
 }
+
+void displayDeleteMovieBanner(){
+    std::cout << "++++++++++++++++++++++++++++++++++" << std::endl;
+    std::cout << "+            ADD MOVIE           +" << std::endl;
+    std::cout << "++++++++++++++++++++++++++++++++++" << std::endl;
+}
+
+void displayManageUsersBanner(){
+    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+    std::cout << "x          MANAGE USERS          x" << std::endl;
+    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+}

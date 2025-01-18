@@ -9,5 +9,8 @@ void displaySignInBanner();
 
 void displayEditOfferBanner();
 void displayAddMovieBanner();
+void displayDeleteMovieBanner();
+
+void displayManageUsersBanner();
 
 #endif
