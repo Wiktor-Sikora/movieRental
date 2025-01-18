@@ -39,7 +39,7 @@ void Movie::saveToDb() {
             this->stock
         ));
 
-        Finance finance(this->price * -1);
+        Finance finance(this->price * (-1));
         finance.saveToDb();
         // TODO: update id after insert with
         // sqlite3_last_insert_rowid() or some shit like that
@@ -74,7 +74,6 @@ bool Movie::rentMovie(int userId) {
 
     this->stock -= 1;
     this->saveToDb();
-
     
     DbHandler.close();
 
