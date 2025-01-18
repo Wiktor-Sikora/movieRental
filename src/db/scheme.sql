@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS "rental"(
   "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   "movie_id" INTEGER NOT NULL REFERENCES "movies"("id"),
   "user_id" INTEGER NOT NULL REFERENCES "users"("id"),
+  "returned" INTEGER NOT NULL DEFAULT '0',
   "date" TEXT
 );
 CREATE TABLE IF NOT EXISTS "finances"(
@@ -28,13 +29,6 @@ CREATE TABLE IF NOT EXISTS "finances"(
   "amount" REAL NOT NULL,
   "user_id" INTEGER NOT NULL REFERENCES "users"("id"),
   "date" TEXT
-);
-CREATE TABLE IF NOT EXISTS "history"(
-  "id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-  "user_id" INTEGER NOT NULL,
-  "movie_id" INTEGER NOT NULL,
-  "action" TEXT NOT NULL,
-  "date" TEXT NOT NULL
 );
 
 INSERT INTO movies VALUES(1,'Skazani na Shawshank','Adaptacja opowiadania Stephena Kinga. Niesłusznie skazany na dożywocie bankier, stara się przetrwać w brutalnym, więziennym świecie.',1994,10.0,10);

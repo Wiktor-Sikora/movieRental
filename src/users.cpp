@@ -91,3 +91,12 @@ bool isBlocked(std::string login) {
     return false;
 }
 
+User getUser(std::string login) {
+    SQLiteDb DbHandler("database.db");
+    std::vector<std::vector<std::string>> rows = DbHandler.query(std::format("SELECT id, is_admin FROM users WHERE login='{}';", login));
+    DbHandler.close();
+    
+    User user(login, std::stoi(rows.at(0).at(1)), false, std::stoi(rows.at(0).at(0)));
+    return user;
+}
+

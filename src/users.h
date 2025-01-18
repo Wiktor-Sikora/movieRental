@@ -25,7 +25,10 @@ class User: public BaseModel {
         friend std::ostream& operator<<(std::ostream& out, const User& user);
 };
  
+
 bool userExists(std::string login);
 bool isBlocked(std::string login);
+
+User getUser(std::string login);
 
 #endif
