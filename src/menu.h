@@ -19,6 +19,8 @@ private:
     int selectedOption;
     MenuOptions* menuOptions;
     Offer movieOffer;
+    bool skipDefaultView = false;
+    bool skipEditOfferView = true;
 
 public:
 
@@ -39,6 +41,7 @@ public:
     void add(User &currentUser);
     void editOffer();
     void navigation();
+    void executeOption();
 };
 
 class MenuOptions {

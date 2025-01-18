@@ -29,6 +29,8 @@
 
 void Menu::deafult() {
         CLEAR;
+        skipDefaultView = false;
+        skipEditOfferView = true;
         displayHeader();
         if (currentUser != nullptr && currentUser->isAuthenticated)
         {
@@ -230,15 +232,37 @@ void Menu::add(User &currentUser) {
 
 void Menu::editOffer(){
     CLEAR;
+    skipDefaultView = true;
+    skipEditOfferView = false;
     EditOfferMenuOptions opt;
     options = opt.getOptions();
     numOptions = options.size();
+
+    displayEditOfferBanner();
+
+    for (int i = 0; i < numOptions; i++) {
+        ConsoleAppearance::centerText(options[i]);
+        if (i == selectedOption) {
+            ConsoleAppearance::SetColor(0, 7);
+            std::cout << " " << options[i] << " " << std::endl;
+            ConsoleAppearance::SetColor(7, 0);
+        } else {
+            ConsoleAppearance::SetColor(7, 0);
+            std::cout << " " << options[i] << " " << std::endl;
+        }
+    }
 }
 
 #ifdef _WIN32
 void Menu::navigation() {
         while (true) {
+
+           if (!skipDefaultView) {
             deafult();
+            }else if (!skipEditOfferView){
+                editOffer();
+            }
+            
 
             int key = GETCH;
 
@@ -253,32 +277,16 @@ void Menu::navigation() {
                     selectedOption = (selectedOption + 1) % numOptions;
                     break;
                 }
-            } else if (key == 13) { // Enter
+                } else if (key == 27) { //Esc
+                    break;
+                }else if (key == 13) { // Enter
                 if (options[selectedOption] == "Exit") {
                     std::cout << "Thank you for visiting! Goodbye\n";
                     break;
+                }else{
+                    executeOption();
                 }
-                else if(options[selectedOption] == "Offer"){
-                    movieMenu(*currentUser);
-                }else if(options[selectedOption] == "Edit Offer"){
-                    editOffer();
-                }else if(options[selectedOption] == "Add Movie"){
-                    add(*currentUser);
-                }else if(options[selectedOption] == "Sign Up"){
-                    signUp();
-                }else if(options[selectedOption] == "Sign In"){
-                    signIn();
-                }else if(options[selectedOption] == "Return"){
-                    updateMenuOptions();
-                    return;
-                }else if(options[selectedOption] == "Log Out"){
-                    delete currentUser;
-                    currentUser = nullptr;
-                    updateMenuOptions();
-                } else {
-                    std::cout << "You have selected: " << options[selectedOption] << std::endl;
-                    PAUSE;                
-                    }
+                
             }
         }
     }
@@ -300,23 +308,16 @@ void Menu::navigation() {
                     selectedOption = (selectedOption + 1) % numOptions;
                     break;
                 }
-            } else if (key == 13) { // Enter
+                } else if (key == 27) { //Esc
+                    break;
+                }else if (key == 13) { // Enter
                 if (options[selectedOption] == "Exit") {
                     std::cout << "Thank you for visiting! Goodbye\n";
                     break;
+                }else{
+                    executeOption();
                 }
-                else if(options[selectedOption] == "Sign Up"){
-                    signUp();
-                }else if(options[selectedOption] == "Sign In"){
-                    signIn();
-                }else if(options[selectedOption] == "Log Out"){
-                    delete currentUser;
-                    currentUser = nullptr;
-                    updateMenuOptions();
-                } else {
-                    std::cout << "You have selected: " << options[selectedOption] << std::endl;
-                    PAUSE;
-                }
+                
             }
         }
     }
@@ -344,22 +345,36 @@ void Menu::navigation() {
             if (options[selectedOption] == "Exit") {
                 std::cout << "Thank you for visiting! Goodbye\n";
                 break;
-            }else if(options[selectedOption] == "Offer"){
-                    movieMenu(*currentUser);
-            }else if (options[selectedOption] == "Sign Up") {
-                signUp();
-            } else if (options[selectedOption] == "Sign In") {
-                signIn();
-            } else if (options[selectedOption] == "Log Out") {
-                delete currentUser;
-                currentUser = nullptr;
-                updateMenuOptions();
-            } else {
-                std::cout << "You have selected: " << options[selectedOption] << std::endl;
-                PAUSE;
+            }else{
+                executeOption();
             }
         }
     }
 }
 
 #endif
+
+
+void Menu::executeOption(){
+    if(options[selectedOption] == "Offer"){
+            movieMenu(*currentUser);
+        }else if(options[selectedOption] == "Edit Offer"){
+            editOffer();
+        }else if(options[selectedOption] == "Add Movie"){
+            add(*currentUser);
+        }else if(options[selectedOption] == "Sign Up"){
+            signUp();
+        }else if(options[selectedOption] == "Sign In"){
+            signIn();
+        }else if(options[selectedOption] == "Return"){
+            deafult();
+            updateMenuOptions();
+        }else if(options[selectedOption] == "Log Out"){
+            delete currentUser;
+            currentUser = nullptr;
+            updateMenuOptions();
+        } else {
+            std::cout << "You have selected: " << options[selectedOption] << std::endl;
+            PAUSE;                
+        }
+}

@@ -68,13 +68,18 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0 && &currentUser != 0) {
+                if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
                     break;
                 } else if(movie.stock == 0) {
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Out of stock!" <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
+                }else if(currentUser.isAdmin == 1){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "Only a regular user can rent a movie." <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
                     PAUSE;
                 }else{
@@ -84,7 +89,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
                     PAUSE;
                 }
             } else if (options[selectedOption] == "Return") {
-                displayMovies(currentUser);
+                return;
             }
         } else if (key == 27) {
             return;
@@ -101,21 +106,28 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Rent") {
-                if (movie.stock > 0 && &currentUser != 0) {
+                if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
+                    break;
                 } else if(movie.stock == 0) {
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
+                }else if(currentUser.isAdmin == 1){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "Only a regular user can rent a movie." <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }else{
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "\nYou must be logged in to do that" << std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }
-                break;
             } else if (options[selectedOption] == "Return") {
-                break;
+                return;
             }
         } else if (key == 27) {
             return;
@@ -137,21 +149,28 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             }
              else if (key == 10) {
                 if (options[selectedOption] == "Rent") {
-                    if (movie.stock > 0 && &currentUser != 0) {
+                    if (movie.stock > 0 && &currentUser != 0 && currentUser.isAdmin == 0) {
                     movie.rentMovie(currentUser.getId());
                     std::cout << "Your purchase was successful!" << std::endl;
+                    break;
                 } else if(movie.stock == 0) {
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "Out of stock!" <<  std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
+                }else if(currentUser.isAdmin == 1){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "Only a regular user can rent a movie." <<  std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }else{
                     ConsoleAppearance::SetColor(4, 0);
                     std::cout << "\nYou must be logged in to do that" << std::endl;
                     ConsoleAppearance::SetColor(7, 0);
+                    PAUSE;
                 }
-                    break;
                 } else if (options[selectedOption] == "Return") {
-                    break;
+                    return;
                 }
             } else if (key == 27) {
                 return;
@@ -159,6 +178,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
 #endif
     }
     }
+    
 void Offer::displayMovies(User &currentUser) {
     SYSTEM;
     CLEAR;
