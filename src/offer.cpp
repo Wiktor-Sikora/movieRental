@@ -35,6 +35,7 @@
 
 
 void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
+    isDisplay = true;
     std::vector<std::string> options = {"Rent", "Return"};
     int selectedOption = 0;
     while(true){
@@ -225,7 +226,12 @@ void Offer::displayMovies(User &currentUser) {
                 selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
         } else if (key == 13) {
-            displayMovieDetails(movies.querySet[selectedIndex], currentUser);
+            if(isDisplay){
+                displayMovieDetails(movies.querySet[selectedIndex], currentUser);
+            }else{
+                displayForDeletion(movies.querySet[selectedIndex], currentUser);
+            }
+            
             break;
         } else if (key == 27) { //Esc
             break;
@@ -340,4 +346,55 @@ void Offer::addMovie() {
     std::cout << "Movie added successfully!" << std::endl;
     PAUSE;
     return;
+}
+
+void Offer::displayForDeletion(Movie& movie, User &currentUser){
+    isDisplay = false;
+    std::vector<std::string> options = {"Delete", "Return"};
+    int selectedOption = 0;
+    while(true){
+        SYSTEM;
+        CLEAR;
+        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+        std::cout << "||" << std::string(5, ' ') << movie.name << std::string(5, ' ') << "||" << std::endl;
+        std::cout << std::string(movie.name.length() + 14, '=') << std::endl;
+
+        std::cout << "Release date: " << movie.released << "\n\n";
+        std::cout << "Description\n" << movie.description << "\n\n";
+        std::cout << "$" << movie.price << " | " << movie.stock << " in stock\n" << std::endl;
+
+        for (int i = 0; i < options.size(); ++i) {
+            if (i == selectedOption) {
+                ConsoleAppearance::SetColor(0, 7);
+                std::cout << " " << options[i] << " " << std::endl;
+                ConsoleAppearance::SetColor(7, 0);
+            } else {
+                ConsoleAppearance::SetColor(7, 0);
+                std::cout << " " << options[i] << std::endl;
+            }
+        }
+#ifdef _WIN32
+        int key = GETCH;
+
+        if (key == 224) { 
+            key = GETCH;
+            if (key == 72) {
+                selectedOption = (selectedOption - 1 + options.size()) % options.size();
+            } else if (key == 80) {
+                selectedOption = (selectedOption + 1) % options.size();
+            }
+        } else if (key == 13) {
+            if (options[selectedOption] == "Delete") {
+                movie.deleteFromDb();
+                std::cout << "Movie deleted successfully!" << std::endl;
+                return;
+            } else if (options[selectedOption] == "Return") {
+                break;
+            }
+        } else if (key == 27) {
+            return;
+        }
+        }
+#endif
+
 }

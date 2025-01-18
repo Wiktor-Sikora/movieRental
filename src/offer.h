@@ -12,10 +12,12 @@
 class Offer{
     User* currentUser;
     public:
+    bool isDisplay = true;
     void displayMovies(User &currentUser);
     void displayMovieDetails(Movie& movie, User &currentUser);
 
     void addMovie();
+    void displayForDeletion(Movie& movie, User &currentUser);
 };
 
 #endif

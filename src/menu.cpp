@@ -223,13 +223,6 @@ void Menu::greetingUser(){
     std::cout << greetings <<  std::endl;
 }
 
-// void search(){
-//     std::string phrase;
-//     std::cout << "Type a name of the movie you want to rent:" << std::endl;
-//     std::getline (std::cin, phrase);
-//     MoviesQuerySet movies(phrase);
-// }
-
 void Menu::movieMenu(User &currentUser) {
     movieOffer.displayMovies(currentUser);
 }
@@ -238,6 +231,7 @@ void Menu::add() {
     Offer offer;
     offer.addMovie();
 }
+
 
 void Menu::editOffer(){
     CLEAR;
@@ -371,6 +365,9 @@ void Menu::executeOption(){
             editOffer();
         }else if(options[selectedOption] == "Add Movie"){
             add();
+        }else if(options[selectedOption] == "Delete Movie"){
+            movieOffer.isDisplay = false;
+            movieOffer.displayMovies(*currentUser);
         }else if(options[selectedOption] == "Sign Up"){
             signUp();
         }else if(options[selectedOption] == "Sign In"){
