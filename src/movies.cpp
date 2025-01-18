@@ -108,13 +108,15 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
     SQLiteDb DbHandler("database.db");
     std::vector<std::vector<std::string>> rows;
 
+    std::string sql;
+
     if (userId == - 1) {
-        std::string sqlQuery = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);        
-        rows = DbHandler.query(sqlQuery); 
+        sql = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);
     } else {
-        // TODO: 
+        sql = std::format("SELECT * FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {}", userId);
     }
 
+    rows = DbHandler.query(sql); 
     for (std::vector row : rows) {
         this->querySet.push_back(Movie(
             row.at(1),
