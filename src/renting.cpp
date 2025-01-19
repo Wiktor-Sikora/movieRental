@@ -42,6 +42,7 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
 
         std::cout << "Release date: " << movie.released << "\n\n";
         std::cout << "Description\n" << movie.description << "\n\n";
+        std::cout << "Rent date: " << movie.getRentedDateHuman() << "\n\n";
 
         for (int i = 0; i < options.size(); ++i) {
             if (i == selectedOption) {
@@ -142,16 +143,17 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
 void Renting::displayRentedMovies(User &currentUser){
     MoviesQuerySet movies("", currentUser.getId(), true, true);
     int selectedIndex = 0;
+    PAUSE;
     while (true) {
         CLEAR;
         std::cout << "Select a movie using Up/Down arrows and press Enter:\n\n";
         for (int i = 0; i < movies.querySet.size(); ++i) {
             if (i == selectedIndex) {
                 ConsoleAppearance::SetColor(0, 7);
-                std::cout << " " << movies.querySet[i].name << " (" << movies.querySet[i].released << ")" << " " << "\n";
+                std::cout << " " << movies.querySet[i].name << " | " << movies.querySet[i].getRentedDateHuman() << " " << "\n";
             } else {
                 ConsoleAppearance::SetColor(7, 0);
-                std::cout<< movies.querySet[i].name << " (" << movies.querySet[i].released << ")\n";
+                std::cout << movies.querySet[i].name << " | " << movies.querySet[i].getRentedDateHuman() << "\n";
             }
         }
         ConsoleAppearance::SetColor(7, 0);
@@ -223,5 +225,17 @@ void Renting::displayRentedMovies(User &currentUser){
 }
 
 void Renting::displayRentalHistory(User &currentUser){
-MoviesQuerySet movies("", currentUser.getId(), true, false);
+    CLEAR;
+    MoviesQuerySet movies("", -1, true, false);
+    std::string renting;
+    std::cout << "Username\t\t Title\t\t\t Date\t\t\t Is in renting\n";
+    for (int i = 0; i < movies.querySet.size(); ++i) {
+        if(movies.querySet[i].isInRenting){
+            renting = "YES";
+        }else{
+            renting = "NO";
+        }
+        std::cout << movies.querySet[i].rentedByLogin << "\t\t" <<  movies.querySet[i].name << "\t" << /*movies.querySet[i].getRentedDateHuman() << */ renting << "\n";
+    }
+    PAUSE;
 }
