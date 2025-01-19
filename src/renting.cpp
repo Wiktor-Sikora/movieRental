@@ -137,7 +137,7 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
             }
             }       
 #endif
-    }
+    }}
 
 
 void Renting::displayRentedMovies(User &currentUser){
@@ -183,7 +183,7 @@ void Renting::displayRentedMovies(User &currentUser){
                 selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
         } else if (key == 13) {
-            displayMovieDetails(movies.querySet[selectedIndex]);
+            displayRentedMovieDetails(movies.querySet[selectedIndex]);
             break;
         } else if (key == 27) { //Esc
             break;
@@ -216,15 +216,15 @@ void Renting::displayRentedMovies(User &currentUser){
         } else if (key == KEY_DOWN) {
             selectedIndex = (selectedIndex + 1) % movies.querySet.size();
         } else if (key == 10) { 
-            displayMovieDetails(movies.querySet[selectedIndex], currentUser);
+            displayRentedMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
+        }
         } 
 #endif
-    }
     PAUSE;
 }
 
-void Renting::displayRentalHistory(User &currentUser){
+void Renting::displayRentalHistory(User &currentUser) {
     CLEAR;
     MoviesQuerySet movies("", -1, true, false);
     std::string renting;
