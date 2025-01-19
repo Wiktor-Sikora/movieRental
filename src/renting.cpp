@@ -66,7 +66,9 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Return") {
+                movie.unRentMovie(currentUser.getId());
                 std::cout << "You have successfully returned the movie\n";
+                PAUSE;
                 break;
             }else if (options[selectedOption] == "Back") {
                 break;
@@ -137,15 +139,16 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
             }
             }       
 #endif
-    }}
+    }
 
 
 void Renting::displayRentedMovies(User &currentUser){
     MoviesQuerySet movies("", currentUser.getId(), true, true);
     int selectedIndex = 0;
-    PAUSE;
     while (true) {
         CLEAR;
+        SYSTEM;
+        displayRentalStatusBanner();
         std::cout << "Select a movie using Up/Down arrows and press Enter:\n\n";
         for (int i = 0; i < movies.querySet.size(); ++i) {
             if (i == selectedIndex) {
@@ -221,21 +224,41 @@ void Renting::displayRentedMovies(User &currentUser){
         }
         } 
 #endif
-    PAUSE;
-}
+}}
 
 void Renting::displayRentalHistory(User &currentUser) {
     CLEAR;
-    MoviesQuerySet movies("", -1, true, false);
-    std::string renting;
-    std::cout << "Username\t\t Title\t\t\t Date\t\t\t Is in renting\n";
-    for (int i = 0; i < movies.querySet.size(); ++i) {
-        if(movies.querySet[i].isInRenting){
-            renting = "YES";
-        }else{
-            renting = "NO";
+    SYSTEM;
+    displayRentalHistoryBanner();
+    if(currentUser.isAdmin){
+        MoviesQuerySet movies("", -1, true, false);
+        std::string renting;
+        std::cout << "Username" << std::string(20, ' ') << "Title" << std::string(31, ' ') <<"Date"<< std::string(20, ' ') <<"Is in renting\n";
+        for (int i = 0; i < movies.querySet.size(); ++i) {
+            if(!movies.querySet[i].isInRenting){
+                renting = "YES";
+                ConsoleAppearance::SetColor(4, 0);
+                std::cout << movies.querySet[i].rentedByLogin << std::string(20 - movies.querySet[i].rentedByLogin.length(), ' ')  <<  movies.querySet[i].name << std::string(36 - getTrueLength(movies.querySet[i].name), ' ') << movies.querySet[i].getRentedDateHuman() << std::string(13, ' ') << renting << "\n";
+                ConsoleAppearance::SetColor(7, 0);
+            }else{
+                renting = "NO";
+                std::cout << movies.querySet[i].rentedByLogin << std::string(20 - movies.querySet[i].rentedByLogin.length(), ' ')  <<  movies.querySet[i].name << std::string(36 - getTrueLength(movies.querySet[i].name), ' ') << movies.querySet[i].getRentedDateHuman() << std::string(13, ' ') << renting << "\n";
+            }
         }
-        std::cout << movies.querySet[i].rentedByLogin << "\t\t" <<  movies.querySet[i].name << "\t" << /*movies.querySet[i].getRentedDateHuman() << */ renting << "\n";
+    }else{
+        MoviesQuerySet movies("", currentUser.getId(), true, false);
+        std::string renting;
+        std::cout << "Title" << std::string(31, ' ') << "Date" << std::string(30, ' ') << "Is in renting\n";
+        for (int i = 0; i < movies.querySet.size(); ++i) {
+            if(!movies.querySet[i].isInRenting){
+                renting = "YES";
+
+            }else{
+                renting = "NO";
+            }
+            std::cout <<  movies.querySet[i].name << std::string(36 - getTrueLength(movies.querySet[i].name), ' ') << movies.querySet[i].getRentedDateHuman() << std::string(15, ' ') << renting << "\n";
+        }
     }
+    std::cout<<"\n";
     PAUSE;
 }

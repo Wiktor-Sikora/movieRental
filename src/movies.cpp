@@ -66,7 +66,7 @@ bool Movie::rentMovie(int userId) {
     }
 
     DbHandler.execute(
-        std::format("INSERT INTO rental (movie_id, user_id, date) VALUES({}, {}, '{}');",
+        std::format("INSERT INTO rental (movie_id, user_id, returned, date) VALUES({}, {}, 0, '{}');",
         this->id,
         userId,
         DateTime(std::time(0))

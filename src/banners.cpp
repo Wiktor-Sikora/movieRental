@@ -60,3 +60,9 @@ void displayRentalStatusBanner(){
     std::cout << "#          RENTAL STATUS         #" << std::endl;
     std::cout << "##################################" << std::endl;
 }
+
+void displayRentalHistoryBanner(){
+    std::cout << "##################################" << std::endl;
+    std::cout << "#         RENTAL HISTORY         #" << std::endl;
+    std::cout << "##################################" << std::endl;
+}

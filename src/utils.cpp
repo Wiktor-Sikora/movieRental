@@ -3,9 +3,22 @@
 #include <ctime>
 #include <fstream>
 #include <time.h>
+#include <iomanip>
+#include <sstream>
+#include <locale>
 
 #include "utils.h"
 #include "db.h"
+
+extern "C" char* strptime(const char* s, const char* f, struct tm* tm) {
+  std::istringstream input(s);
+  input.imbue(std::locale(setlocale(LC_ALL, nullptr)));
+  input >> std::get_time(tm, f);
+  if (input.fail()) {
+    return nullptr;
+  }
+  return (char*)(s + input.tellg());
+}
 
 time_t parseDateTime(const char* datetimeString, const char* format) {
     struct tm tmStruct;
@@ -44,4 +57,25 @@ void initilizeDbOnFirstRun() {
     dbHandler.close();
 
     sqlFile.close();
+
 };
+
+int getTrueLength(std::string &str) {
+    size_t length = 0;
+    for (size_t i = 0; i < str.size(); ) {
+        unsigned char c = static_cast<unsigned char>(str[i]);
+        if ((c & 0x80) == 0) { // 1-byte character (ASCII)
+            i += 1;
+        } else if ((c & 0xE0) == 0xC0) { // 2-byte character
+            i += 2;
+        } else if ((c & 0xF0) == 0xE0) { // 3-byte character
+            i += 3;
+        } else if ((c & 0xF8) == 0xF0) { // 4-byte character
+            i += 4;
+        } else {
+            throw std::runtime_error("Invalid UTF-8 sequence");
+        }
+        ++length; // Count each valid character
+    }
+    return length;
+}
