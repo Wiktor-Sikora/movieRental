@@ -175,6 +175,7 @@ void Renting::displayRentedMovies(User &currentUser){
         } else if (key == 27) { //Esc
             break;
         }
+    }
 #elif _WIN64
     int key = GETCH;
         if (key == 224) {
@@ -190,6 +191,7 @@ void Renting::displayRentedMovies(User &currentUser){
         } else if (key == 27) { //Esc
             break;
         }
+}
 #else
         ESCDELAY = 50;
         initscr();
