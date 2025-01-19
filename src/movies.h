@@ -11,8 +11,6 @@
 #include "utils.h"
 
 class Movie: public BaseModel {
-    private:
-
     public:
         std::string name;
         std::string description; 

@@ -10,10 +10,10 @@
 int main() {
     initilizeDbOnFirstRun();
 
-    // MoviesQuerySet movies("", 1);
+    // MoviesQuerySet movies("", 1, true);
     // std::cout << movies.querySet.size() << "\n";
     // for (auto movie : movies.querySet) {
-    //     std::cout << movie.description << "\n";
+    //     std::cout << movie << "\n";
     // }
 
     Menu mainMenu(nullptr, 0);
