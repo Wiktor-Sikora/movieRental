@@ -140,28 +140,12 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
 
 
 void Renting::displayRentedMovies(User &currentUser){
-    std::string movieTitle = " ";
-    MoviesQuerySet movies(movieTitle);
-    if (movies.querySet.empty()) {
-        ConsoleAppearance::SetColor(4, 0);
-        std::cout << "\nNo movies found with this title" << std::endl;
-        ConsoleAppearance::SetColor(7, 0);
-        PAUSE;
-        displayRentedMovies(currentUser);
-    }
-
-    int maxSize;
-    if(movies.querySet.size()>15){
-        maxSize = 15;
-    }else{
-        maxSize = movies.querySet.size();
-    }
-
+    MoviesQuerySet movies("", currentUser.getId(), true, true);
     int selectedIndex = 0;
     while (true) {
         CLEAR;
         std::cout << "Select a movie using Up/Down arrows and press Enter:\n\n";
-        for (int i = 0; i < maxSize; ++i) {
+        for (int i = 0; i < movies.querySet.size(); ++i) {
             if (i == selectedIndex) {
                 ConsoleAppearance::SetColor(0, 7);
                 std::cout << " " << movies.querySet[i].name << " (" << movies.querySet[i].released << ")" << " " << "\n";
@@ -177,9 +161,9 @@ void Renting::displayRentedMovies(User &currentUser){
         if (key == 224) {
             key = GETCH;
             if (key == 72) {
-                selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
+                selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
             } else if (key == 80) {
-                selectedIndex = (selectedIndex + 1) % maxSize;
+                selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
         } else if (key == 13) {
             displayRentedMovieDetails(movies.querySet[selectedIndex], currentUser);
@@ -192,9 +176,9 @@ void Renting::displayRentedMovies(User &currentUser){
         if (key == 224) {
             key = GETCH;
             if (key == 72) {
-                selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
+                selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
             } else if (key == 80) {
-                selectedIndex = (selectedIndex + 1) % maxSize;
+                selectedIndex = (selectedIndex + 1) % movies.querySet.size();
             }
         } else if (key == 13) {
             displayMovieDetails(movies.querySet[selectedIndex]);
@@ -226,9 +210,9 @@ void Renting::displayRentedMovies(User &currentUser){
         endwin();
 
         if (key == KEY_UP) {
-            selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
+            selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
         } else if (key == KEY_DOWN) {
-            selectedIndex = (selectedIndex + 1) % maxSize;
+            selectedIndex = (selectedIndex + 1) % movies.querySet.size();
         } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
@@ -236,4 +220,8 @@ void Renting::displayRentedMovies(User &currentUser){
 #endif
     }
     PAUSE;
+}
+
+void Renting::displayRentalHistory(User &currentUser){
+MoviesQuerySet movies("", currentUser.getId(), true, false);
 }

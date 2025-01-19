@@ -519,8 +519,10 @@ void Menu::executeOption(){
             blockUser();
         }else if(options[selectedOption] == "Unblock User"){
             unblockUser();
-        }else if(options[selectedOption] == "Rental History"){
+        }else if(options[selectedOption] == "Rental Status"){
             movieRenting.displayRentedMovies(*currentUser);
+        }else if(options[selectedOption] == "Rental History"){
+            movieRenting.displayRentalHistory(*currentUser);
         }else if(options[selectedOption] == "Financial Balances"){
             finances();
         }else if(options[selectedOption] == "Sign Up"){
