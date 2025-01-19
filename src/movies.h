@@ -38,10 +38,11 @@ class MoviesQuerySet {
     public:
         std::vector<Movie> querySet;
 
-        MoviesQuerySet(const std::string& searchPhrase, int userId = -1);
+        MoviesQuerySet(const std::string& searchPhrase, int userId = -1, bool onlyInRental = false);
         ~MoviesQuerySet();
 
         friend std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies);
 };
+
 
 #endif

@@ -111,13 +111,15 @@ bool Movie::unRentMovie(int userId) {
  * @param searchPhrase gets movies with similiar name
  * @param userId gets movies that are rented by a user
 */
-MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId) {
+MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId, bool onlyInRental) {
     SQLiteDb DbHandler("database.db");
     std::vector<std::vector<std::string>> rows;
     std::string sql;
 
     if (userId == - 1) {
         sql = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);
+    } else if (onlyInRental) {
+        sql = std::format("SELECT * FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {} AND rental.returned = 0", userId);
     } else {
         sql = std::format("SELECT * FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {}", userId);
     }
