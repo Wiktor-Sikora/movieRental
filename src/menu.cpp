@@ -8,6 +8,7 @@
 #include "users.h"
 #include "offer.h"
 #include "finance.h"
+#include "renting.h"
 
 #ifdef _WIN32
 #define CLEAR system("cls")
@@ -518,6 +519,8 @@ void Menu::executeOption(){
             blockUser();
         }else if(options[selectedOption] == "Unblock User"){
             unblockUser();
+        }else if(options[selectedOption] == "Rental History"){
+            movieRenting.displayRentedMovies(*currentUser);
         }else if(options[selectedOption] == "Financial Balances"){
             finances();
         }else if(options[selectedOption] == "Sign Up"){

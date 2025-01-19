@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 
-#include "db.h"
 #include "movies.h"
 #include "users.h"
 

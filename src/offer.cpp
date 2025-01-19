@@ -9,7 +9,6 @@
 #include "movies.h"
 #include "users.h"
 #include "banners.h"
-// #include "db.h"
 
 
 
@@ -212,7 +211,7 @@ void Offer::displayMovies(User &currentUser) {
     MoviesQuerySet movies(movieTitle);
     if (movies.querySet.empty()) {
         ConsoleAppearance::SetColor(4, 0);
-        std::cout << "\nNo movies found with the title" << std::endl;
+        std::cout << "\nNo movies found with this title" << std::endl;
         ConsoleAppearance::SetColor(7, 0);
         PAUSE;
         displayMovies(currentUser);
@@ -310,7 +309,6 @@ void Offer::displayMovies(User &currentUser) {
     }
     PAUSE;
 }
-
 
 
 
