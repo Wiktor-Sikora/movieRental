@@ -106,7 +106,7 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
 
         int key = GETCH;
 
-         if (key == 27) {
+        if (key == 27) {
 
             nodelay(stdscr, TRUE);
             int nextChar = getch();
@@ -122,24 +122,23 @@ void Renting::displayRentedMovieDetails(Movie& movie, User &currentUser){
 
         endwin();
 
-            if (key == KEY_UP) {
-                selectedOption = (selectedOption - 1 + options.size()) % options.size();
-            } else if (key == KEY_DOWN) {
-                selectedOption = (selectedOption + 1) % options.size();
-            }
-            else if (key == 27) {
-                return;
-            }
-             else if (key == 10) {
-                if (options[selectedOption] == "Return") {
+        if (key == KEY_UP) {
+            selectedOption = (selectedOption - 1 + options.size()) % options.size();
+        } else if (key == KEY_DOWN) {
+            selectedOption = (selectedOption + 1) % options.size();
+        } else if (key == 27) {
+            return;
+        } else if (key == 10) {
+            if (options[selectedOption] == "Return") {
                 std::cout << "You have successfully returned the movie";
                 break;
-            }else if (options[selectedOption] == "Back") {
+            } else if (options[selectedOption] == "Back") {
                 break;
             }
-            }       
-#endif
+        }
     }
+#endif
+}
 
 
 void Renting::displayRentedMovies(User &currentUser){
@@ -222,9 +221,9 @@ void Renting::displayRentedMovies(User &currentUser){
             displayRentedMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
         }
-        } 
+    }
 #endif
-}}
+}
 
 void Renting::displayRentalHistory(User &currentUser) {
     CLEAR;

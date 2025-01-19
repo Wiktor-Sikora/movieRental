@@ -66,3 +66,4 @@ INSERT INTO movies VALUES(32,'Green Book','Drobny cwaniaczek z Bronksu zostaje s
 INSERT INTO movies VALUES(33,'Szeregowiec Ryan','W poszukiwaniu zaginionego szeregowca wysłany zostaje doborowy oddział żołnierzy.',1998,10.0,10);
 INSERT INTO movies VALUES(34,'Whiplash','Młody i ambitny perkusista za wszelką cenę pragnie dołączyć do czołówki najwybitniejszych artystów muzyki jazzowej.',2014,10.0,10);
 INSERT INTO movies VALUES(35,'Przełęcz ocalonych','Schyłek II wojny światowej. Podczas krwawej bitwy o Okinawę amerykański sanitariusz odmawia noszenia broni i zabijania z powodów moralnych.',2016,10.0,10);
+INSERT INTO users (login, password, is_admin, is_blocked) VALUES('admin', 'password', 1, 0);
