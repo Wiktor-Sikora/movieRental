@@ -201,11 +201,19 @@ void Offer::displayMovies(User &currentUser) {
         PAUSE;
         displayMovies(currentUser);
     }
+
+    int maxSize;
+    if(movies.querySet.size()>15){
+        maxSize = 15;
+    }else{
+        maxSize = movies.querySet.size();
+    }
+
     int selectedIndex = 0;
     while (true) {
         CLEAR;
         std::cout << "Select a movie using Up/Down arrows and press Enter:\n\n";
-        for (int i = 0; i < movies.querySet.size(); ++i) {
+        for (int i = 0; i < maxSize; ++i) {
             if (i == selectedIndex) {
                 ConsoleAppearance::SetColor(0, 7);
                 std::cout << " " << movies.querySet[i].name << " (" << movies.querySet[i].released << ")" << " " << "\n";
@@ -221,9 +229,9 @@ void Offer::displayMovies(User &currentUser) {
         if (key == 224) {
             key = GETCH;
             if (key == 72) {
-                selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
+                selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
             } else if (key == 80) {
-                selectedIndex = (selectedIndex + 1) % movies.querySet.size();
+                selectedIndex = (selectedIndex + 1) % maxSize;
             }
         } else if (key == 13) {
             if(isDisplay){
@@ -241,9 +249,9 @@ void Offer::displayMovies(User &currentUser) {
         if (key == 224) {
             key = GETCH;
             if (key == 72) {
-                selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
+                selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
             } else if (key == 80) {
-                selectedIndex = (selectedIndex + 1) % movies.querySet.size();
+                selectedIndex = (selectedIndex + 1) % maxSize;
             }
         } else if (key == 13) {
             displayMovieDetails(movies.querySet[selectedIndex]);
@@ -262,9 +270,9 @@ void Offer::displayMovies(User &currentUser) {
         endwin();
 
         if (key == KEY_UP) {
-            selectedIndex = (selectedIndex - 1 + movies.querySet.size()) % movies.querySet.size();
+            selectedIndex = (selectedIndex - 1 + maxSize) % maxSize;
         } else if (key == KEY_DOWN) {
-            selectedIndex = (selectedIndex + 1) % movies.querySet.size();
+            selectedIndex = (selectedIndex + 1) % maxSize;
         } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
