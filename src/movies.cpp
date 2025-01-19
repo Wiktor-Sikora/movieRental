@@ -91,7 +91,7 @@ bool Movie::unRentMovie(int userId) {
     }
 
     DbHandler.execute(
-        std::format("DELETE FROM rental WHERE movie_id={} and user_id={};",
+        std::format("UPDATE rental SET returned=1 WHERE movie_id={} and user_id={};",
         this->id,
         userId
     ));
@@ -111,17 +111,27 @@ bool Movie::unRentMovie(int userId) {
  * @param searchPhrase gets movies with similiar name
  * @param userId gets movies that are rented by a user
 */
-MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId, bool onlyInRental) {
+MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId, bool searchByRental, bool onlyNotReturned) {
     SQLiteDb DbHandler("database.db");
     std::vector<std::vector<std::string>> rows;
     std::string sql;
 
-    if (userId == - 1) {
+    if (!searchByRental) { // searches for movies by searchPhrase
         sql = std::format("SELECT * FROM movies Where name LIKE '%{}%';", searchPhrase);
-    } else if (onlyInRental) {
-        sql = std::format("SELECT * FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {} AND rental.returned = 0", userId);
-    } else {
-        sql = std::format("SELECT * FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {}", userId);
+    } else if (searchByRental && userId != -1 && onlyNotReturned) { // searches for movies rented by specific user that are not returned
+        sql = std::format("SELECT movies.name, movies.description, movies.released, movies.price, movies.in_stock, movies.id\
+            rental.returned, rental.date, users.login, users.id\
+            FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {} AND rental.returned = 0", 
+            userId
+        );
+    } else if (searchByRental && userId != -1) { // searches for movies rented by specific user
+        sql = std::format("SELECT movies.name, movies.description, movies.released, movies.price, movies.in_stock, movies.id\
+            rental.returned, rental.date, users.login, users.id\
+            FROM movies INNER JOIN rental ON movies.id = rental.movie_id WHERE rental.user_id = {}", userId);
+    } else { // // searches for all movies that were rented
+        sql = "SELECT movies.name, movies.description, movies.released, movies.price, movies.in_stock, movies.id\
+            rental.returned, rental.date, users.login, users.id\
+            FROM movies INNER JOIN rental ON movies.id = rental.movie_id";
     }
 
     rows = DbHandler.query(sql); 
@@ -134,6 +144,13 @@ MoviesQuerySet::MoviesQuerySet(const std::string& searchPhrase, int userId, bool
             std::stoi(row.at(5)),
             std::stoi(row.at(0))
         ));
+
+        if (!searchByRental) {continue;};
+
+        this->querySet.back().isInRenting = std::stoi(row.at(6));
+        this->querySet.back().date = parseDateTime(row.at(7).c_str());
+        this->querySet.back().rentedByLogin = row.at(8);
+        this->querySet.back().rentedById = std::stoi(row.at(9));
     }
 
     DbHandler.close();
@@ -151,7 +168,7 @@ std::ostream& operator<<(std::ostream& out, const MoviesQuerySet& movies) {
         for (int i = 0; i < movies.querySet.size() - 1; i++) {
             out << movies.querySet.at(i) << ", ";
         }
-        out << movies.querySet.at(movies.querySet.size() - 1);
+        out << movies.querySet.back();
     }
     out << "]";
     return out;
