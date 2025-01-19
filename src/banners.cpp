@@ -38,7 +38,19 @@ void displayDeleteMovieBanner(){
 }
 
 void displayManageUsersBanner(){
-    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
-    std::cout << "x          MANAGE USERS          x" << std::endl;
-    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" << std::endl;
+    std::cout << "##################################" << std::endl;
+    std::cout << "#          MANAGE USERS          #" << std::endl;
+    std::cout << "##################################" << std::endl;
+}
+
+void displayBlockUserBanner(){
+    std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << std::endl;
+    std::cout << "X           BLOCK USER           X" << std::endl;
+    std::cout << "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" << std::endl;
+}
+
+void displayUnblockUserBanner(){
+    std::cout << "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << std::endl;
+    std::cout << "O          UNBLOCK USER          O" << std::endl;
+    std::cout << "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << std::endl;
 }

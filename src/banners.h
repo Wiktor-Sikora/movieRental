@@ -12,5 +12,7 @@ void displayAddMovieBanner();
 void displayDeleteMovieBanner();
 
 void displayManageUsersBanner();
+void displayBlockUserBanner();
+void displayUnblockUserBanner();
 
 #endif

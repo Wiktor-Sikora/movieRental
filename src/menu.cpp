@@ -283,14 +283,95 @@ void Menu::manageUsersMenu(){
 }
 
 void Menu::blockUser(){
+    CLEAR;
+    displayBlockUserBanner();
     std::string username;
-    std::cout << "Enter the login of the user you want to block:";
+    std::cout << "Enter the login of the user you want to block:\n";
     std::getline (std::cin, username);
-    mUser = new User(username);
-    if(!isBlocked(username)){
-        mUser->isBlocked = true;
+    
+    if(username.empty()){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "This field cannot be empty." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        deafult();
+        return;
     }
 
+    if(username == currentUser->login){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "You can't." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        return;
+    }
+
+    if(!userExists(username)){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "This username does not exist." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;        
+        blockUser();
+    }
+    User mUser = getUser(username);
+    if(!isBlocked(username)){
+        mUser.isBlocked = true;
+        mUser.saveToDb("");
+        std::cout << "User successfully blocked." << std::endl;
+        PAUSE;
+    }else{
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\nThis user is arleady blocked.\n";
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        blockUser();
+    }
+}
+
+void Menu::unblockUser(){
+    CLEAR;
+    displayBlockUserBanner();
+    std::string username;
+    std::cout << "Enter the login of the user you want to unblock:\n";
+    std::getline (std::cin, username);
+    
+    if(username.empty()){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "This field cannot be empty." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        deafult();
+        return;
+    }
+    
+    if(username == currentUser->login){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "You can't." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        return;
+    }
+
+    if(!userExists(username)){
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\n" << "This username does not exist." << std::endl;
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;        
+        unblockUser();
+    }
+    User mUser = getUser(username);
+    if(isBlocked(username)){
+        mUser.isBlocked = false;
+        mUser.saveToDb("");
+        std::cout << "User successfully unblocked." << std::endl;
+        PAUSE;
+    }else{
+        ConsoleAppearance::SetColor(4, 0);
+        std::cout << "\nThis user is arleady unblocked.\n";
+        ConsoleAppearance::SetColor(7, 0);
+        PAUSE;
+        unblockUser();
+    }
 }
 
 void Menu::finances(){
@@ -418,6 +499,10 @@ void Menu::executeOption(){
             movieOffer.displayMovies(*currentUser);
         }else if(options[selectedOption] == "Manage Users"){
             manageUsersMenu();
+        }else if(options[selectedOption] == "Block User"){
+            blockUser();
+        }else if(options[selectedOption] == "Unblock User"){
+            unblockUser();
         }else if(options[selectedOption] == "Financial Balances"){
             finances();
         }else if(options[selectedOption] == "Sign Up"){
