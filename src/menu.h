@@ -7,6 +7,7 @@
 #include "users.h"
 #include "movies.h"
 #include "offer.h"
+#include "renting.h"
 
 class MenuOptions;
 
@@ -20,6 +21,7 @@ private:
     int selectedOption;
     MenuOptions* menuOptions;
     Offer movieOffer;
+    Renting movieRenting;
     bool skipDefaultView = false;
     bool skipEditOfferView = true;
     bool skipManageUsersView = true;

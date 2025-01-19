@@ -15,4 +15,6 @@ void displayManageUsersBanner();
 void displayBlockUserBanner();
 void displayUnblockUserBanner();
 
+void displayRentalStatusBanner();
+
 #endif

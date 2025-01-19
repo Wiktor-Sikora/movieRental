@@ -35,6 +35,7 @@ add_executable(movieRentalApp
     src/offer.cpp src/offer.h
     src/utils.cpp src/utils.h
     src/finance.cpp src/finance.h
+    src/renting.cpp src/renting.h
 )
 
 if(UNIX)

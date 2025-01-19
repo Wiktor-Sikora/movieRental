@@ -54,3 +54,9 @@ void displayUnblockUserBanner(){
     std::cout << "O          UNBLOCK USER          O" << std::endl;
     std::cout << "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO" << std::endl;
 }
+
+void displayRentalStatusBanner(){
+    std::cout << "##################################" << std::endl;
+    std::cout << "#          RENTAL STATUS         #" << std::endl;
+    std::cout << "##################################" << std::endl;
+}
