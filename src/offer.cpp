@@ -178,7 +178,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             } else if (options[selectedOption] == "Return") {
                 break;
             }
-            } else if (key == 27) {
+            } else if (key == 53) {
                 return;
             }
 #endif
@@ -276,7 +276,7 @@ void Offer::displayMovies(User &currentUser) {
         } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
-        } else if (key == 66) { 
+        } else if (key == 53) { 
             break;
         }
 #endif

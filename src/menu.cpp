@@ -472,7 +472,7 @@ void Menu::navigation() {
             selectedOption = (selectedOption - 1 + numOptions) % numOptions;
         } else if (key == KEY_DOWN) {
             selectedOption = (selectedOption + 1) % numOptions;
-        } else if (key == 66) { //Esc
+        } else if (key == 53) { //Esc
             break;
         }else if (key == 10) { // Enter key
             if (options[selectedOption] == "Exit") {
