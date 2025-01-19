@@ -138,6 +138,7 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             return;
         }
 #else
+        ESCDELAY = 50;
         initscr();
         noecho();
         cbreak();
@@ -275,6 +276,7 @@ void Offer::displayMovies(User &currentUser) {
             break;
         }
 #else
+        ESCDELAY = 50;
         initscr();
         noecho();
         cbreak();
@@ -283,11 +285,9 @@ void Offer::displayMovies(User &currentUser) {
         int key = GETCH;
 
          if (key == 27) {
-
             nodelay(stdscr, TRUE);
             int nextChar = getch();
             nodelay(stdscr, FALSE);
-
             if (nextChar == ERR) {
                 endwin();
                 return;
@@ -305,9 +305,7 @@ void Offer::displayMovies(User &currentUser) {
         } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
-        } else if (key == 27) {
-            return;
-        }
+        } 
 #endif
     }
     PAUSE;
@@ -451,7 +449,8 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
         } else if (key == 27) {
             return;
         }
-#else
+#else   
+        ESCDELAY = 50;
         initscr();
         noecho();
         cbreak();

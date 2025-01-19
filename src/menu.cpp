@@ -457,7 +457,7 @@ void Menu::navigation() {
 void Menu::navigation() {
     while (true) {
         deafult();
-
+        ESCDELAY = 50;
         // Initialize curses
         initscr();
         noecho();
