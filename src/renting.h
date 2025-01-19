@@ -15,6 +15,7 @@ class Renting{
     void displayRentedMovies(User &currentUser);
     void displayRentedMovieDetails(Movie& movie, User &currentUser);
 
+    void displayRentalHistory(User &currentUser);
 };
 
 #endif
