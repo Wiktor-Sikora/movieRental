@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <fstream>
+#include <time.h>
 
 #include "utils.h"
 #include "db.h"
