@@ -145,6 +145,20 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
 
         int key = GETCH;
 
+         if (key == 27) {
+
+            nodelay(stdscr, TRUE);
+            int nextChar = getch();
+            nodelay(stdscr, FALSE);
+
+            if (nextChar == ERR) {
+                endwin();
+                return;
+            } else {
+                ungetch(nextChar);
+            }
+        }
+
         endwin();
 
             if (key == KEY_UP) {
@@ -267,6 +281,20 @@ void Offer::displayMovies(User &currentUser) {
         keypad(stdscr, TRUE);
 
         int key = GETCH;
+
+         if (key == 27) {
+
+            nodelay(stdscr, TRUE);
+            int nextChar = getch();
+            nodelay(stdscr, FALSE);
+
+            if (nextChar == ERR) {
+                endwin();
+                return;
+            } else {
+                ungetch(nextChar);
+            }
+        }
 
         endwin();
 
@@ -430,6 +458,20 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
         keypad(stdscr, TRUE);
 
         int key = GETCH;
+
+         if (key == 27) {
+
+            nodelay(stdscr, TRUE);
+            int nextChar = getch();
+            nodelay(stdscr, FALSE);
+
+            if (nextChar == ERR) {
+                endwin();
+                return;
+            } else {
+                ungetch(nextChar);
+            }
+        }
 
         endwin();
 

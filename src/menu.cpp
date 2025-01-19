@@ -466,15 +466,28 @@ void Menu::navigation() {
 
         int key = GETCH;
 
-        endwin(); // End curses mode
+        if (key == 27) {
+
+            nodelay(stdscr, TRUE);
+            int nextChar = getch();
+            nodelay(stdscr, FALSE);
+
+            if (nextChar == ERR) {
+                endwin();
+                return;
+            } else {
+                ungetch(nextChar);
+            }
+        }
+
+        endwin();
 
         if (key == KEY_UP) {
             selectedOption = (selectedOption - 1 + numOptions) % numOptions;
         } else if (key == KEY_DOWN) {
             selectedOption = (selectedOption + 1) % numOptions;
-        } else if (key == 27) {
-                return;
-        }else if (key == 10) { // Enter key
+        } 
+        else if (key == 10) { // Enter key
             if (options[selectedOption] == "Exit") {
                 std::cout << "Thank you for visiting! Goodbye\n";
                 break;
