@@ -472,8 +472,8 @@ void Menu::navigation() {
             selectedOption = (selectedOption - 1 + numOptions) % numOptions;
         } else if (key == KEY_DOWN) {
             selectedOption = (selectedOption + 1) % numOptions;
-        } else if (key == "\027") { //Esc
-            break;
+        } else if (key == 27) {
+                return;
         }else if (key == 10) { // Enter key
             if (options[selectedOption] == "Exit") {
                 std::cout << "Thank you for visiting! Goodbye\n";

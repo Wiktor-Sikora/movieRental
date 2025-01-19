@@ -152,6 +152,9 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             } else if (key == KEY_DOWN) {
                 selectedOption = (selectedOption + 1) % options.size();
             }
+            else if (key == 27) {
+                return;
+            }
              else if (key == 10) {
                 if (options[selectedOption] == "Rent") {
                     if(&currentUser == nullptr){
@@ -178,8 +181,6 @@ void Offer::displayMovieDetails(Movie& movie, User &currentUser) {
             } else if (options[selectedOption] == "Return") {
                 break;
             }
-            } else if (key == "\027") {
-                return;
             }
 #endif
     }
@@ -276,8 +277,8 @@ void Offer::displayMovies(User &currentUser) {
         } else if (key == 10) { 
             displayMovieDetails(movies.querySet[selectedIndex], currentUser);
             break;
-        } else if (key == "\027") { 
-            break;
+        } else if (key == 27) {
+            return;
         }
 #endif
     }
@@ -436,7 +437,9 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
             selectedOption = (selectedOption - 1 + options.size()) % options.size();
         } else if (key == KEY_DOWN) {
             selectedOption = (selectedOption + 1) % options.size();
-        } else if (key == 10) { 
+        } else if (key == 27) {
+            return;
+        }else if (key == 10) { 
             if (options[selectedOption] == "Delete") {
                 movie.deleteFromDb();
                 std::cout << "Movie deleted successfully!" << std::endl;
@@ -444,9 +447,7 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
             } else if (options[selectedOption] == "Return") {
                 break;
             }
-        } else if (key == "\027") {
-            return;
-        }
+        } 
 #endif
         }
 }
