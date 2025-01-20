@@ -218,8 +218,8 @@ void Offer::displayMovies(User &currentUser) {
     }
 
     int maxSize;
-    if(movies.querySet.size()>15){
-        maxSize = 15;
+    if(movies.querySet.size()>18){
+        maxSize = 18;
     }else{
         maxSize = movies.querySet.size();
     }
@@ -417,8 +417,14 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Delete") {
-                movie.deleteFromDb();
-                std::cout << "Movie deleted successfully!" << std::endl;
+                if(movie.isRentedByName(movie.name)){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You can't delete a movie that is rented!" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    movie.deleteFromDb();
+                    std::cout << "Movie deleted successfully!" << std::endl;
+                }
                 return;
             } else if (options[selectedOption] == "Return") {
                 break;
@@ -438,8 +444,14 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
             }
         } else if (key == 13) {
             if (options[selectedOption] == "Delete") {
-                movie.deleteFromDb();
-                std::cout << "Movie deleted successfully!" << std::endl;
+                if(movie.isRentedByName(movie.name)){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You can't delete a movie that is rented!" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    movie.deleteFromDb();
+                    std::cout << "Movie deleted successfully!" << std::endl;
+                }
                 return;
             } else if (options[selectedOption] == "Return") {
                 break;
@@ -480,8 +492,14 @@ void Offer::displayForDeletion(Movie& movie, User &currentUser){
             return;
         }else if (key == 10) { 
             if (options[selectedOption] == "Delete") {
-                movie.deleteFromDb();
-                std::cout << "Movie deleted successfully!" << std::endl;
+                if(movie.isRentedByName(movie.name)){
+                    ConsoleAppearance::SetColor(4, 0);
+                    std::cout << "You can't delete a movie that is rented!" << std::endl;
+                    ConsoleAppearance::SetColor(7, 0);
+                }else{
+                    movie.deleteFromDb();
+                    std::cout << "Movie deleted successfully!" << std::endl;
+                }
                 return;
             } else if (options[selectedOption] == "Return") {
                 break;

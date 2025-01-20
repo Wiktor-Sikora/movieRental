@@ -32,6 +32,8 @@ public:
     options = {"Offer", "Sign Up", "Sign In", "Exit"}; 
     }
 
+    ~Menu(){};
+
     void deafult();
     void updateMenuOptions();
     void signUp();

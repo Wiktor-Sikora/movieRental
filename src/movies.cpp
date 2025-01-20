@@ -104,6 +104,21 @@ bool Movie::unRentMovie(int userId) {
     return true;
 };
 
+bool Movie::isRentedByName(const std::string& movieName) {
+    SQLiteDb DbHandler("database.db");
+
+    auto result = DbHandler.query(std::format(
+        "SELECT COUNT(*) FROM rental "
+        "JOIN movies ON rental.movie_id = movies.id "
+        "WHERE movies.name = '{}' AND rental.returned = 0;",
+        movieName
+    ));
+    DbHandler.close();
+    if (!result.empty() && !result[0].empty()) {
+        return std::stoi(result[0][0]) > 0;
+    }
+    return false;
+}
 
 /**
  * Fills the class with Movie objects

@@ -31,6 +31,7 @@ class Movie: public BaseModel {
         void deleteFromDb() const override;
         bool rentMovie(int userId);
         bool unRentMovie(int userId);
+        bool isRentedByName(const std::string& movieName);
 
         std::string getRentedDateHuman() {return DateTime(this->date);};
 
