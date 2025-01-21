@@ -49,5 +49,5 @@ bright_cyan - SetColor(11, 0)
 bright_red - SetColor(12, 0)
 pink - SetColor(13, 0)
 bright_yellow - SetColor(14, 0)
-jasny_fijoł - SetColor(15, 0)
+jasny - SetColor(15, 0)
 */

@@ -9,7 +9,6 @@
 #include "users.h"
 
 class Offer{
-    User* currentUser;
     public:
     bool isDisplay = true;
     void displayMovies(User &currentUser);

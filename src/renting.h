@@ -9,7 +9,6 @@
 #include "users.h"
 
 class Renting{
-    User* currentUser;
     public:
     bool isDisplay = true;
     void displayRentedMovies(User &currentUser);

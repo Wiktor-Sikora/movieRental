@@ -5,9 +5,6 @@
 
 #include "menu.h"
 #include "consoleapperance.h"
-#include "offer.h"
-#include "movies.h"
-#include "users.h"
 #include "banners.h"
 
 
